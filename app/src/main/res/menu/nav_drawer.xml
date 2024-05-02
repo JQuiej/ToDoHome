@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
+    android:background="@color/black"
+    android:theme="@style/ThemeOverlay.AppCompat.DayNight">
+    <item
+        android:id="@+id/main_User"
+        android:title="Usuario">
+        <menu>
+            <item
+                android:id="@+id/item_User"
+                android:icon="@drawable/user_menu"
+                android:title="Datos Usuario"
+                android:checkable="true"/>
+            <item
+                android:id="@+id/item_Family"
+                android:icon="@drawable/family"
+                android:title="Familia"
+                android:checkable="true"/>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/main_cuenta"
+        android:title="Cuenta">
+        <menu>
+            <item
+                android:id="@+id/item_logout"
+                android:icon="@drawable/logout"
+                android:title="Cerrar Sesion"
+                android:checkable="true"/>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/main_anuncio"
+        android:title="Anuncio">
+        <menu>
+            <item
+                android:id="@+id/item_anuncio"
+                android:icon="@drawable/advertising"
+                android:title="Quieres estudiar en UMG?"
+                android:checkable="true"/>
+            <item
+                android:title=" "
+                android:checkable="true"/>
+            <item
+                android:checkable="true"
+                android:title=" " />
+            <item
+                android:title=" "
+                android:checkable="true"/>
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "767397923254",
+    "project_id": "todohome-ae655",
+    "storage_bucket": "todohome-ae655.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:767397923254:android:3c14f69906daa2bf5b1917",
+        "android_client_info": {
+          "package_name": "com.umg.todohome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "767397923254-bq1619ceplmn6i9dcofm27ans6c1h84b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.umg.todohome",
+            "certificate_hash": "dcab812984dcaab1cf15223376ba49347a1f2c31"
+          }
+        },
+        {
+          "client_id": "767397923254-h335c7suis8m67rnldcrr57kivtbbghc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQ2ZrCS-eiT8piGa85_GNoYljJy_ECAjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "767397923254-h335c7suis8m67rnldcrr57kivtbbghc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

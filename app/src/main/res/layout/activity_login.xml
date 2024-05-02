@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/text"
+        android:layout_width="374dp"
+        android:layout_height="695dp"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="29dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingStart="30dp"
+            android:text="@string/login"
+            android:textColor="@color/background_highlight"
+            android:textSize="30dp" />
+
+        <TextView
+            android:layout_width="287dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:text="@string/Login"
+            android:textColor="@color/background_highlight"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="232dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/poster_login" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:text="@string/Email"
+            android:textAlignment="center"
+            android:textColor="@color/azul_highlight"
+            android:textSize="14sp"
+            android:textStyle="italic" />
+
+
+        <EditText
+            android:id="@+id/txEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:hint="@string/email"
+            android:textAlignment="textStart"
+            android:textColor="@color/background_highlight"
+            android:textColorHint="@color/background_highlight"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/txPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textAlignment="textStart"
+            android:textColor="@color/background_highlight"
+            android:textColorHint="@color/background_highlight"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="325dp"
+            android:layout_height="172dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="35dp"
+            android:orientation="vertical"
+            android:textAlignment="center"
+            tools:ignore="MissingConstraints">
+
+            <Button
+                android:layout_width="288dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/rounded_logo_background"
+                android:onClick="ShowLoginUser"
+                android:text="@string/login" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="15dp">
+
+                <EditText
+                    android:id="@+id/cbAcept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:buttonTint="@color/background_highlight"
+                    android:text="@string/forgotPassword"
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tvResetPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:onClick="resetPassword"
+                    android:text="@string/resetPassword"
+                    android:textColor="@color/background_highlight"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+
+                <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="35dp"
+                    android:text="@string/NoAccount"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="66dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:onClick="showLoginUser"
+                    android:text="Registrate"
+                    android:textAlignment="center"
+                    android:textColor="@color/teal_700"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

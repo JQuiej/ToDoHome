@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_location"
+        android:enabled="true"
+        android:icon="@drawable/location_menu"
+        android:title="Localizacion"/>
+    <item
+        android:id="@+id/nav_chat"
+        android:enabled="true"
+        android:icon="@drawable/menu_chat"
+        android:title="Chat"/>
+    <item
+        android:id="@+id/nav_task"
+        android:enabled="true"
+        android:icon="@drawable/task_menu"
+        android:title="Tareas"/>
+    <item
+        android:id="@+id/nav_expense"
+        android:enabled="true"
+        android:icon="@drawable/menu_expense"
+        android:title="Gastos"/>
+</menu>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:id="@+id/text"
+        android:layout_width="378dp"
+        android:layout_height="695dp"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="29dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
+            android:paddingStart="30dp"
+            android:text="@string/Bienvenida"
+            android:textColor="@color/background_highlight"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="15dp"
+            android:text="@string/Title"
+            android:textColor="@color/background_highlight"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="232dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/poster_inicial" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="18dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/Social"
+            android:textAlignment="center"
+            android:textColor="@color/azul_highlight"
+            android:textSize="13sp"
+            android:textStyle="italic" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="376dp"
+            android:layout_height="74dp"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/btGoogle"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center|fill"
+                android:layout_marginStart="110dp"
+                android:background="@drawable/rounded_logo_background"
+                android:backgroundTint="@color/white"
+                android:drawableStart="@drawable/google"
+                android:onClick="GoGoogle"
+                android:paddingStart="9dp"
+                android:paddingEnd="15dp" />
+
+            <Button
+                android:id="@+id/btFacebook"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:layout_gravity="center|fill"
+                android:layout_marginStart="35dp"
+                android:background="@drawable/rounded_logo_background"
+                android:backgroundTint="@color/white"
+                android:drawableEnd="@drawable/facebook"
+                android:onClick="goFacebook"
+                android:paddingStart="10dp"
+                android:paddingEnd="7dp"
+                android:text="@string/CreateAcount" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="177dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:textAlignment="center"
+            tools:ignore="MissingConstraints">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="15dp"
+                android:text="@string/Email"
+                android:textAlignment="center"
+                android:textColor="@color/azul_highlight"
+                android:textSize="13sp"
+                android:textStyle="italic" />
+
+            <Button
+                android:id="@+id/btCreateAcount"
+                android:layout_width="351dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/rounded_logo_background"
+                android:onClick="ShowAccountCreate"
+                android:text="@string/CreateAcount" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+
+                <TextView
+                    android:layout_width="213dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-5dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/account"
+                    android:textAlignment="textEnd"
+                    android:textColor="@color/black"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:layout_width="152dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
+                    android:onClick="GoLogin"
+                    android:text="Inicia"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/teal_700"
+                    android:textSize="10sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

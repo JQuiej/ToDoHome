@@ -1,0 +1,42 @@
+<resources>
+
+    <string name="default_web_client_id">AIzaSyDQ2ZrCS-eiT8piGa85_GNoYljJy_ECAjQ</string>
+    <string name="fb_login_protocol_scheme">fb{2325822824433063}</string>
+    <string name="facebook_app_id">2325822824433063</string>
+    <string name="facebook_client_token">c023816b58e8d71fa01fe20fa0e83582</string>
+
+    <string name="app_name">ToDoHome</string>
+    <string name="Facebook">con Facebook</string>
+    <string name="Google">con Google</string>
+    <string name="password">Contraseña</string>
+    <string name="email">Email</string>
+    <string name="forgotPassword">Olvidaste tu contraseña?</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="resetPassword">Recuperar Contraseña</string>
+    <string name="acept">He leído y acepto los</string>
+    <string name="terms">términos y condiciones de uso.</string>
+    <string name="empty_email">Introduce un email</string>
+    <string name="CreateAcount">Registrar</string>
+    <string name="Social">- Inicia con -</string>
+    <string name="Email">- Inicia con Correo Electronico -</string>
+    <string name="Title">ToDoHome: Tu hogar organizado y conectado</string>
+    <string name="Registro">Porfavor registrese con un Correo Electronico para poder continuar usando nuestra app</string>
+    <string name="Login">Porfavor Ingrese con su cuenta para poder continuar usando nuestra app</string>
+    <string name="Bienvenida">Bienvenido</string>
+    <string name="content">Organiza y manten comunicada a tu Familia</string>
+    <string name="SingUp">Registrar</string>
+    <string name="Name">Nombre</string>
+    <string name="lastname">Apellido</string>
+    <string name="account">Ya tienes una cuenta?</string>
+    <string name="NoAccount">Aun no tiene cuenta?</string>
+    <string name="AddFamily">Unirte a una Familia</string>
+    <string name="data">Ingrese los datos necesarios que se le indican</string>
+
+    <string name="navigation_drawer_close">Cerrar</string>
+    <string name="menu_offercourse">Quieres estudiar en la UMG?</string>
+    <string name="bar_title">To Do Home</string>
+    <string name="textapp">Empoderamos a las familias para que administren sus finanzas con confianza y facilidad.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
