@@ -40,6 +40,10 @@ class WelcomeActivity : AppCompatActivity(){
         val mAuth = FirebaseAuth.getInstance()
 
     }
+
+    override fun onBackPressed() {
+        finishAffinity()
+    }
     public override fun onStart(){
         super.onStart()
         val currentUser = FirebaseAuth.getInstance().currentUser

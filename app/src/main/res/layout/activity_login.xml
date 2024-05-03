@@ -8,8 +8,8 @@
 
     <LinearLayout
         android:id="@+id/text"
-        android:layout_width="374dp"
-        android:layout_height="695dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
@@ -38,7 +38,6 @@
             android:layout_width="match_parent"
             android:layout_height="232dp"
             android:layout_marginTop="7dp"
-            android:layout_marginEnd="20dp"
             android:src="@drawable/poster_login" />
 
         <TextView
@@ -82,35 +81,32 @@
             android:textSize="15sp" />
 
         <LinearLayout
-            android:layout_width="325dp"
-            android:layout_height="172dp"
-            android:layout_marginLeft="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="25dp"
-            android:layout_marginRight="35dp"
             android:orientation="vertical"
-            android:textAlignment="center"
             tools:ignore="MissingConstraints">
 
             <Button
-                android:layout_width="288dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="50dp"
                 android:background="@drawable/rounded_logo_background"
                 android:onClick="ShowLoginUser"
                 android:text="@string/login" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="15dp">
 
                 <EditText
                     android:id="@+id/cbAcept"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
+                    android:layout_marginStart="90dp"
                     android:buttonTint="@color/background_highlight"
                     android:text="@string/forgotPassword"
                     android:textColor="@color/black"
@@ -130,19 +126,19 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="44dp">
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="140dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="35dp"
+                    android:layout_marginStart="130dp"
                     android:text="@string/NoAccount"
                     android:textAlignment="textEnd"
                     android:textColor="@color/black"
                     android:textSize="10sp" />
 
                 <TextView
-                    android:layout_width="66dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
                     android:onClick="showLoginUser"

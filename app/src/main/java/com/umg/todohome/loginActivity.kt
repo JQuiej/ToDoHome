@@ -22,7 +22,6 @@ class loginActivity : AppCompatActivity(){
     companion object {
         lateinit var usermail: String
         lateinit var providerSession: String
-
     }
 
     private var email by Delegates.notNull<String>()

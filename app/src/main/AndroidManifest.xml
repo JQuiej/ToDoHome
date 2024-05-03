@@ -30,7 +30,17 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+            android:name=".activityDataUser"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".activityAddFamily"
             android:exported="true"
             android:screenOrientation="portrait">
         </activity>

@@ -29,8 +29,10 @@
     <string name="lastname">Apellido</string>
     <string name="account">Ya tienes una cuenta?</string>
     <string name="NoAccount">Aun no tiene cuenta?</string>
-    <string name="AddFamily">Unirte a una Familia</string>
+    <string name="AddFamily">Crea o Unete una Familia</string>
     <string name="data">Ingrese los datos necesarios que se le indican</string>
+    <string name="dataU">Ingrese sus datos Personales</string>
+    <string name="dataUser">Datos del Usuario</string>
 
     <string name="navigation_drawer_close">Cerrar</string>
     <string name="menu_offercourse">Quieres estudiar en la UMG?</string>
