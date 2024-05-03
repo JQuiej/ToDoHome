@@ -50,6 +50,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:backgroundTint="@color/azul_highlight"
-            app:menu="@menu/nav_drawer" />
+            app:menu="@menu/nav_drawer"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

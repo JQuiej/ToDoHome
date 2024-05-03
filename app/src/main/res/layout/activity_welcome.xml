@@ -10,8 +10,8 @@
 
     <LinearLayout
         android:id="@+id/text"
-        android:layout_width="378dp"
-        android:layout_height="695dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
@@ -45,7 +45,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="18dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/Social"
             android:textAlignment="center"
@@ -55,15 +55,16 @@
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="376dp"
-            android:layout_height="74dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp">
 
             <Button
                 android:id="@+id/btGoogle"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:layout_gravity="center|fill"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginStart="110dp"
                 android:background="@drawable/rounded_logo_background"
                 android:backgroundTint="@color/white"
@@ -76,7 +77,7 @@
                 android:id="@+id/btFacebook"
                 android:layout_width="55dp"
                 android:layout_height="55dp"
-                android:layout_gravity="center|fill"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginStart="35dp"
                 android:background="@drawable/rounded_logo_background"
                 android:backgroundTint="@color/white"
@@ -89,7 +90,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="177dp"
+            android:layout_height="match_parent"
             android:layout_marginTop="8dp"
             android:orientation="vertical"
             android:textAlignment="center"
@@ -109,7 +110,7 @@
 
             <Button
                 android:id="@+id/btCreateAcount"
-                android:layout_width="351dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="18dp"

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:foreground="?attr/selectableItemBackgroundBorderless"
     android:background="@color/black"
-    android:theme="@style/ThemeOverlay.AppCompat.DayNight">
+    android:theme="@style/ThemeOverlay.AppCompat.Light">
     <item
         android:id="@+id/main_User"
         android:title="Usuario">
