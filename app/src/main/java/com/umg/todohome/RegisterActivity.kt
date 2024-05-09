@@ -21,6 +21,8 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
+import com.umg.todohome.activityAddFamily.Companion.Rol
+import com.umg.todohome.activityAddFamily.Companion.idFamily
 import com.umg.todohome.loginActivity.Companion.providerSession
 import com.umg.todohome.loginActivity.Companion.usermail
 import java.text.SimpleDateFormat
@@ -72,12 +74,12 @@ class RegisterActivity : AppCompatActivity(){
                         FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener {
                                 if (it.isSuccessful) {
-                                    val dateRegister = SimpleDateFormat("dd/MM/yyyy").format(Date())
                                     val dbRegister = FirebaseFirestore.getInstance()
                                     dbRegister.collection("users").document(email).set(
                                         hashMapOf(
                                             "user" to email,
-                                            "dateRegister" to dateRegister
+                                            "IdFamily" to idFamily,
+                                            "Rol" to Rol,
                                         )
                                     )
 

@@ -14,6 +14,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.umg.todohome.activityAddFamily.Companion.Rol
+import com.umg.todohome.activityAddFamily.Companion.idFamily
 import kotlin.properties.Delegates
 
 

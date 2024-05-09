@@ -1,5 +1,6 @@
 package com.umg.todohome
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -20,35 +21,38 @@ import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
+import com.umg.todohome.activityAddFamily.Companion.Rol
+import com.umg.todohome.activityAddFamily.Companion.idFamily
+import com.umg.todohome.loginActivity.Companion.providerSession
+import com.umg.todohome.loginActivity.Companion.usermail
 import kotlin.properties.Delegates
 
-class WelcomeActivity : AppCompatActivity(){
+class WelcomeActivity : AppCompatActivity() {
 
     private var Email by Delegates.notNull<String>()
     private lateinit var mAuth: FirebaseAuth
 
 
-    private  var RESULT_CODE_GOOGLE_SIGN_IN = 100
+    private var RESULT_CODE_GOOGLE_SIGN_IN = 100
     private val callbackManager = CallbackManager.Factory.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
-
         mAuth = FirebaseAuth.getInstance()
         //asignando variables a los elementos del activity
-        val mAuth = FirebaseAuth.getInstance()
 
     }
-
     override fun onBackPressed() {
         finishAffinity()
     }
-    public override fun onStart(){
+
+    public override fun onStart() {
         super.onStart()
         val currentUser = FirebaseAuth.getInstance().currentUser
-        if(currentUser != null) {
-            inicio(currentUser.email.toString(), currentUser.providerId)
+        if (currentUser != null) {
+             inicio(currentUser.email.toString(), currentUser.providerId)
         }
     }
     fun ShowAccountCreate(view: View){
@@ -115,7 +119,7 @@ class WelcomeActivity : AppCompatActivity(){
                 Email = account.email!!
                 val credential = GoogleAuthProvider.getCredential(account.idToken, null)
                 mAuth.signInWithCredential(credential).addOnCompleteListener{ task ->
-                    if (task.isSuccessful) inicio(Email, "Google")
+                    if (task.isSuccessful)inicio(Email, "Google")
                     else Toast.makeText(this, "Error en la conexión con Google", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: ApiException) {
@@ -127,11 +131,12 @@ class WelcomeActivity : AppCompatActivity(){
     private fun showError (provider: String){
         Toast.makeText(this, "Error en la conexión con $provider", Toast.LENGTH_SHORT).show()
     }
-    private fun inicio(email: String, provider: String){
-        loginActivity.usermail = email
-        loginActivity.providerSession = provider
+    private fun inicio(email: String, provider: String) {
+        usermail = email
+        providerSession = provider
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+
     }
 }

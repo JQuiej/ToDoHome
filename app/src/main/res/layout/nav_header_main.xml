@@ -11,26 +11,27 @@
     android:foreground="?attr/selectableItemBackgroundBorderless"
     android:gravity="bottom"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.DayNight">
+    android:theme="@style/Theme.ToDoHome">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/textUser"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="24dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageUserBar"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/user_menu"
-            />
+            android:layout_marginTop="20sp"
+            android:rotationX="0"
+            android:rotationY="0"
+            app:shapeAppearanceOverlay="@style/circular"
+            android:src="@drawable/user_image"/>
 
         <TextView
             android:id="@+id/userLogin"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"

@@ -1,20 +1,19 @@
 package com.umg.todohome
 
+import android.content.Context
 import android.os.Bundle
-import android.os.PersistableBundle
+import android.content.SharedPreferences;
 import android.view.View
-import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import com.umg.todohome.loginActivity.Companion.usermail
-import kotlin.properties.Delegates
+
 
 class activityAddFamily: AppCompatActivity () {
 
@@ -53,24 +52,26 @@ class activityAddFamily: AppCompatActivity () {
 
         if (rbFather.isChecked) {
             Rol = "Padre"
-        } else if (rbChild.isChecked) {
+        }
+        if (rbChild.isChecked) {
             Rol = "Hijo(a)"
-        } else if (!rbChild.isChecked or !rbFather.isChecked) {
-            Toast.makeText(this, "Seleccione Su Rol ", Toast.LENGTH_SHORT).show()
-        } else {
+        }
+
 
             idFamily = id.text.toString()
 
             if (rbCreate.isChecked) {
                 var collection = "Family"
-                var dbRun = FirebaseFirestore.getInstance()
-                dbRun.collection(collection).document(idFamily).set(
+                var db = FirebaseFirestore.getInstance()
+                db.collection(collection).document("users").collection(idFamily).document(
+                    usermail).set(
                     hashMapOf(
+                        "user" to usermail,
                         "IdFamily" to idFamily,
+                        "Rol" to Rol,
                     )
                 )
-                var collectionUser = "users"
-                dbRun.collection(collectionUser).document(usermail).set(
+                db.collection("users").document(usermail).set(
                     hashMapOf(
                         "user" to usermail,
                         "IdFamily" to idFamily,
@@ -81,7 +82,7 @@ class activityAddFamily: AppCompatActivity () {
 
             } else if (rbUnite.isChecked) {
                 val db = FirebaseFirestore.getInstance()
-                val usersRef = db.collection("Family")
+                val usersRef = db.collection("Family").document("users").collection(idFamily)
 
                 usersRef.whereEqualTo("IdFamily", idFamily).get()
                     .addOnCompleteListener { task ->
@@ -93,8 +94,16 @@ class activityAddFamily: AppCompatActivity () {
                                     Toast.LENGTH_SHORT
                                 ).show()
                             } else {
-                                var collectionUser = "users"
-                                db.collection(collectionUser).document(usermail).set(
+                                var collection = "Family"
+                                db.collection(collection).document("users").collection(idFamily).document(
+                                    usermail).set(
+                                    hashMapOf(
+                                        "user" to usermail,
+                                        "IdFamily" to idFamily,
+                                        "Rol" to Rol,
+                                    )
+                                )
+                                db.collection("users").document(usermail).set(
                                     hashMapOf(
                                         "user" to usermail,
                                         "IdFamily" to idFamily,
@@ -118,8 +127,10 @@ class activityAddFamily: AppCompatActivity () {
                     }
             } else Toast.makeText(this, "hay opciones sin seleccionar", Toast.LENGTH_SHORT).show()
 
-        }
+
     }
+
 }
+
 
 
