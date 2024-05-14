@@ -1,9 +1,10 @@
 package com.umg.todohome
 
-data class Task(
+class Expense(
+    var user: String ?= null,
     var title: String ?= null,
     var description: String ?= null,
-    var status: String ?= null,
-    var importance: String ?= null,
+    var category: String ?= null,
+    var Expensive: String?= null,
     var date: String ?= null,
 )

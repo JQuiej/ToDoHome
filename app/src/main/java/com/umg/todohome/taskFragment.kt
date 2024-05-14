@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.umg.todohome.activityAddFamily.Companion.idFamily
 
 class taskFragment : Fragment() {
@@ -61,6 +62,7 @@ class taskFragment : Fragment() {
 
         var dbRuns = FirebaseFirestore.getInstance()
         dbRuns.collection("task").document(idFamily).collection(idFamily)
+            .orderBy("importance",Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { documents ->
                 for (doc in documents) {

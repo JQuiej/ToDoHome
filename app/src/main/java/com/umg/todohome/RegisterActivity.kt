@@ -23,6 +23,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import com.umg.todohome.activityAddFamily.Companion.Rol
 import com.umg.todohome.activityAddFamily.Companion.idFamily
+import com.umg.todohome.activityDataUser.Companion.userName
 import com.umg.todohome.loginActivity.Companion.providerSession
 import com.umg.todohome.loginActivity.Companion.usermail
 import java.text.SimpleDateFormat
@@ -31,12 +32,14 @@ import kotlin.properties.Delegates
 
 class RegisterActivity : AppCompatActivity(){
 
+    private var Name by Delegates.notNull<String>()
     private var email by Delegates.notNull<String>()
     private var password by Delegates.notNull<String>()
     private var passwordConfirm by Delegates.notNull<String>()
     private lateinit var txEmail: EditText
     private lateinit var txPassword: EditText
     private lateinit var txPasswordConfirm: EditText
+    private lateinit var txUserName: EditText
 
     private lateinit var mAuth: FirebaseAuth
 
@@ -49,6 +52,7 @@ class RegisterActivity : AppCompatActivity(){
         txEmail = findViewById(R.id.txEmail)
         txPassword = findViewById(R.id.txPassword)
         txPasswordConfirm = findViewById(R.id.txPasswordConfirm)
+        txUserName = findViewById(R.id.txUserName)
 
 
     }
@@ -65,8 +69,9 @@ class RegisterActivity : AppCompatActivity(){
         email = txEmail.text.toString()
         password = txPassword.text.toString()
         passwordConfirm = txPasswordConfirm.text.toString()
+        Name = txUserName.text.toString()
 
-            if (email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty() || passwordConfirm.isEmpty() || Name.isEmpty()) {
                 Toast.makeText(this, "Falta ingresar Datos", Toast.LENGTH_LONG).show()
             }else {
                 if (acepTerms.isChecked) {
@@ -77,13 +82,12 @@ class RegisterActivity : AppCompatActivity(){
                                     val dbRegister = FirebaseFirestore.getInstance()
                                     dbRegister.collection("users").document(email).set(
                                         hashMapOf(
+                                            "name" to Name,
                                             "user" to email,
-                                            "IdFamily" to idFamily,
-                                            "Rol" to Rol,
                                         )
                                     )
 
-                                    inicio(email, "email")
+                                    inicio(email, "email", Name)
                                 } else {
                                     Toast.makeText(
                                         this,
@@ -109,9 +113,10 @@ class RegisterActivity : AppCompatActivity(){
         }
 
 
-    private fun inicio(email: String, provider: String){
+    private fun inicio(email: String, provider: String, name: String){
         usermail = email
         providerSession = provider
+        userName = name
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)

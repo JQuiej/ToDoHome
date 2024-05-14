@@ -8,17 +8,43 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTaskFamily"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="wrap_content"
+            android:gravity="start">
+
+            <Button
+                android:id="@+id/taskPendin"
+                android:layout_marginTop="5dp"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:textSize="9sp"
+                android:backgroundTint="@color/background_highlight"
+                android:text="Pendientes" />
+
+            <Button
+                android:id="@+id/taskDone"
+                android:layout_width="203dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="@color/background_highlight"
+                android:text="Realizadas"
+                android:textSize="9sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTaskFamily"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
+    </androidx.recyclerview.widget.RecyclerView>
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +60,7 @@
             android:onClick="showAddTask"
             app:srcCompat="@drawable/baseline_add_box_24"
             app:useCompatPadding="true"
-            app:backgroundTint="@color/background_base" />
+            app:backgroundTint="@color/background_highlight" />
 
     </RelativeLayout>
 

@@ -27,6 +27,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FileDownloadTask
 
 class activityDataUser: AppCompatActivity() {
@@ -104,34 +105,30 @@ class activityDataUser: AppCompatActivity() {
         dataUser()
     }
     private fun dataUser() {
+
+
         userName = name.text.toString()
         userDate = date.text.toString()
         userAddres = addres.text.toString()
 
-        var collection = "Family"
         var db = FirebaseFirestore.getInstance()
+        /*var collection = "Family"
         db.collection(collection).document("users").collection(idFamily).document(
             usermail).set(
             hashMapOf(
                 "user" to usermail,
                 "name" to userName,
-                "IdFamily" to idFamily,
-                "Rol" to Rol,
                 "date" to userDate,
                 "addres" to userAddres,
-                "uriImage" to uriImage
-            )
-        )
+            ) , SetOptions.merge()
+        )*/
         db.collection("users").document(usermail).set(
             hashMapOf(
                 "user" to usermail,
                 "name" to userName,
-                "IdFamily" to idFamily,
-                "Rol" to Rol,
                 "date" to userDate,
                 "addres" to userAddres,
-                "uriImage" to uriImage
-            )
+            ) , SetOptions.merge()
         )
         Toast.makeText(this, "Datos Guardados", Toast.LENGTH_SHORT).show()
         loadImage()
@@ -154,23 +151,24 @@ class activityDataUser: AppCompatActivity() {
                         userName = doc.getString("name").toString()
                         userDate = doc.getString("date").toString()
                         userAddres = doc.getString("addres").toString()
+
+
+
                     }
-                    if(userName == "null" || userDate == "null" || userAddres == "null"){
-                        name.setText("")
-                        date.setText("")
-                        addres.setText("")
-                    }else{
+                    if(userDate == "null" || userAddres == "null"){
+                        userDate = ""
+                        userAddres = ""
+                    }
                         name.setText(userName)
                         date.setText(userDate)
                         addres.setText(userAddres)
-                    }
                 }
             }
             loadImage()
         }
     }
     private fun loadImage() {
-        val storageRef = FirebaseStorage.getInstance().getReference("$uriImage")
+        val storageRef = FirebaseStorage.getInstance().getReference("fotos/$usermail/image/ImageUser")
 
         storageRef.downloadUrl
             .addOnSuccessListener { downloadUrl ->

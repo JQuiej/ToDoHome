@@ -25,8 +25,10 @@ class ActivityAddTask: AppCompatActivity() {
 
     private lateinit var title: EditText
     private lateinit var descrip: EditText
-    private lateinit var importance: RadioButton
-    private lateinit var daily: RadioButton
+    private lateinit var alta: RadioButton
+    private lateinit var media: RadioButton
+    private lateinit var poca: RadioButton
+
     var numTask : Int = 0;
     private lateinit var drawer: DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,8 +54,9 @@ class ActivityAddTask: AppCompatActivity() {
     private fun updateTask(){
         title = findViewById(R.id.txtitle)
         descrip = findViewById(R.id.txdescrip)
-        importance =findViewById(R.id.radio_importance)
-        daily = findViewById(R.id.radio_daily)
+        alta =findViewById(R.id.radio_Alta)
+        media = findViewById(R.id.radio_media)
+        poca = findViewById(R.id.radio_poca)
 
         numTask++
 
@@ -62,12 +65,17 @@ class ActivityAddTask: AppCompatActivity() {
         val taksD = descrip.text.toString()
 
         status = "Pendiente"
-        if(importance.isChecked){
-            relevance = "Importante"
+        if(alta.isChecked){
+            relevance = "Alta"
         }
-        if(daily.isChecked){
-            relevance = "Cotidiana"
+        if(media.isChecked){
+            relevance = "Media"
         }
+        if(poca.isChecked){
+            relevance = "Poca"
+        }
+
+        val dateTask = SimpleDateFormat("dd/MM/yyyy").format(Date())
 
         var collection = "task"
         var db = FirebaseFirestore.getInstance()
@@ -77,10 +85,12 @@ class ActivityAddTask: AppCompatActivity() {
                 "description" to taksD,
                 "importance" to relevance,
                 "status" to status,
+                "date" to dateTask
             )
         )
 
         Toast.makeText(this, "Tarea agregada exitosamente ", Toast.LENGTH_LONG).show()
+        onBackPressed()
     }
 
     fun generateUniqueId(): String {

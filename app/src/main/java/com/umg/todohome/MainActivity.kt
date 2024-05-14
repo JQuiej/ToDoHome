@@ -1,15 +1,22 @@
 package com.umg.todohome
 
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.PixelFormat
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
@@ -25,16 +32,12 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.umg.todohome.activityAddFamily.Companion.Rol
 import com.umg.todohome.activityAddFamily.Companion.idFamily
-import com.umg.todohome.activityDataUser.Companion.uriImage
 import com.umg.todohome.activityDataUser.Companion.userAddres
 import com.umg.todohome.activityDataUser.Companion.userDate
 import com.umg.todohome.activityDataUser.Companion.userName
 import com.umg.todohome.databinding.ActivityMainBinding
 import com.umg.todohome.loginActivity.Companion.providerSession
 import com.umg.todohome.loginActivity.Companion.usermail
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
@@ -85,7 +88,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         loadImage()
     }
     private fun loadImage() {
-        val storageRef = FirebaseStorage.getInstance().getReference("$uriImage")
+        val storageRef = FirebaseStorage.getInstance().getReference("fotos/$usermail/image/ImageUser")
 
         storageRef.downloadUrl
             .addOnSuccessListener { downloadUrl ->
@@ -109,7 +112,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             if (documento.exists()) {
                 idFamily = documento.data?.get("IdFamily").toString()
                 Rol = documento.data?.get("Rol").toString()
-                uriImage = documento.data?.get("uriImage").toString()
+                userName = documento.data?.get("name").toString()
 
                 if(idFamily == "null" || Rol == "null"){
                     idFamily = ""
@@ -177,9 +180,33 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         startActivity(intent)
     }
     private fun openFragment(fragment: Fragment){
-        val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_container, fragment)
-        fragmentTransaction.commit()
+        if(fragment is fragment_welcome){
+            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.frame_container, fragment)
+            fragmentTransaction.commit()
+        }else if (!idFamily.isEmpty()){
+            val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.frame_container, fragment)
+            fragmentTransaction.commit()
+        }else {
+            alertFamily()
+        }
+    }
+    private fun alertFamily(){
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.IdFamily))
+            .setMessage(R.string.noIdFamily)
+            .setInverseBackgroundForced(true)
+            .setPositiveButton(android.R.string.ok,
+                DialogInterface.OnClickListener { dialog, which ->
+                    goAddFamily()
+                })
+            .setNegativeButton(android.R.string.cancel,
+                DialogInterface.OnClickListener { dialog, which ->
+                    closeContextMenu()
+                })
+            .setCancelable(true)
+            .show()
     }
     override fun onBackPressed() {
         if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)){
@@ -200,6 +227,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         userName = ""
         userDate =""
         userAddres = ""
+        imageUserbar.setImageResource(R.drawable.user_image);
+
 
         if(providerSession == "Facebook") LoginManager.getInstance().logOut()
         FirebaseAuth.getInstance().signOut()
@@ -208,3 +237,4 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     }
 }
+

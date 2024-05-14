@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.SetOptions
 import com.umg.todohome.activityAddFamily.Companion.idFamily
 import com.umg.todohome.loginActivity.Companion.usermail
 
@@ -37,7 +38,45 @@ class ActivityListFamily: AppCompatActivity()  {
 
     }
     fun ExitFamily(view: View){
-        //ExitUserFamily()
+        ExitUserFamily()
+    }
+    private fun ExitUserFamily(){
+        var db = FirebaseFirestore.getInstance()
+        val docRef = db.collection("Family").document("users").collection(idFamily)
+            .document(usermail)
+
+        val PathIdFamily = db.collection("users").document(usermail)
+
+        docRef.delete()
+            .addOnSuccessListener {
+                println("Documento eliminado exitosamente")
+            }
+            .addOnFailureListener { e ->
+                println("Error al eliminar documento: ${e.message}")
+            }
+
+
+
+        // Create or update the user document with a server-side merge
+        val updateMap = hashMapOf<String, Any>(
+            "IdFamily" to "",
+            "Rol" to ""
+        )
+
+        PathIdFamily.set(updateMap, SetOptions.merge())
+            .addOnSuccessListener {
+                // Update successful
+                Log.d("Firestore", "Name updated successfully!")
+                Toast.makeText(this, "Te has Salido de la $idFamily ", Toast.LENGTH_LONG).show()
+                idFamily = ""
+            }
+            .addOnFailureListener { exception ->
+                // Update failed (or document creation failed)
+                Log.w("Firestore", "Error updating name: $exception")
+            }
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+
     }
     override fun onResume() {
         super.onResume()
@@ -51,8 +90,8 @@ class ActivityListFamily: AppCompatActivity()  {
     private fun loadRecycleView() {
       familyArrayList.clear()
 
-        var dbRuns = FirebaseFirestore.getInstance()
-        dbRuns.collection("Family").document("users").collection(idFamily)
+        var db = FirebaseFirestore.getInstance()
+        db.collection("Family").document("users").collection(idFamily)
             .get()
             .addOnSuccessListener { documents ->
                 for (doc in documents) {

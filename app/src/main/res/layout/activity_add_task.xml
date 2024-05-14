@@ -41,33 +41,16 @@
             android:layout_marginTop="20dp"
             android:src="@drawable/poster_task" />
 
-        <TextView
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Titulo"
-            android:textSize="18sp"
-            android:textColor="@color/background_highlight"
-            android:textAlignment="center"/>
-
             <EditText
                 android:id="@+id/txtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
+                android:hint="Titulo"
                 android:layout_marginRight="15dp"
                 android:textColorHint="@color/background_highlight"
                 android:textColor="@color/background_highlight"
                 android:textSize="16sp" />
-
-        <TextView
-            android:layout_marginTop="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Descripcion"
-            android:textSize="18sp"
-            android:textColor="@color/background_highlight"
-            android:textAlignment="center"/>
 
             <EditText
                 android:id="@+id/txdescrip"
@@ -75,6 +58,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:hint="Descripcion"
                 android:textColorHint="@color/background_highlight"
                 android:textColor="@color/background_highlight"
                 android:textSize="16sp" />
@@ -91,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="15dp"
-                android:text="Importancia"
+                android:text="Prioridad"
                 android:textColor="@color/background_highlight"
                 android:textSize="16sp" />
 
@@ -102,20 +87,28 @@
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/radio_importance"
+                    android:id="@+id/radio_Alta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/background_highlight"
-                    android:text="Importante"
+                    android:text="Alta"
                     android:textColor="@color/background_highlight" />
 
                 <RadioButton
-                    android:id="@+id/radio_daily"
-                    android:layout_width="126dp"
-                    android:layout_height="30dp"
+                    android:id="@+id/radio_media"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:buttonTint="@color/background_highlight"
-                    android:text="Cotidiano"
+                    android:text="Media"
+                    android:textColor="@color/background_highlight" />
+
+                <RadioButton
+                    android:id="@+id/radio_poca"
+                    android:layout_width="126dp"
+                    android:layout_height="30dp"
+                    android:buttonTint="@color/background_highlight"
+                    android:text="Poca"
                     android:textColor="@color/background_highlight" />
 
             </RadioGroup>

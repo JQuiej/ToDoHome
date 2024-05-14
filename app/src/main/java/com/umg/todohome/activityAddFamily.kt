@@ -1,8 +1,10 @@
 package com.umg.todohome
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.content.SharedPreferences;
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.RadioButton
@@ -12,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import com.umg.todohome.activityDataUser.Companion.userName
 import com.umg.todohome.loginActivity.Companion.usermail
 
 
@@ -61,22 +65,34 @@ class activityAddFamily: AppCompatActivity () {
             idFamily = id.text.toString()
 
             if (rbCreate.isChecked) {
-                var collection = "Family"
+
                 var db = FirebaseFirestore.getInstance()
-                db.collection(collection).document("users").collection(idFamily).document(
-                    usermail).set(
-                    hashMapOf(
-                        "user" to usermail,
-                        "IdFamily" to idFamily,
-                        "Rol" to Rol,
-                    )
+                val userDocRef = db.collection("Family").document("users")
+                    .collection(idFamily).document(usermail)
+
+                val updateMap = hashMapOf<String, Any>(
+                    "name" to userName!!,
+                    "user" to usermail,
+                    "IdFamily" to idFamily,
+                    "Rol" to Rol,
                 )
+
+                userDocRef.set(updateMap, SetOptions.merge())
+                    .addOnSuccessListener {
+                        // Update successful
+                        Log.d("Firestore", "Name updated successfully!")
+                    }
+                    .addOnFailureListener { exception ->
+                        // Update failed (or document creation failed)
+                        Log.w("Firestore", "Error updating name: $exception")
+                    }
+
                 db.collection("users").document(usermail).set(
                     hashMapOf(
                         "user" to usermail,
                         "IdFamily" to idFamily,
                         "Rol" to Rol,
-                    )
+                    ) , SetOptions.merge()
                 )
                 Toast.makeText(this, "Familia creada exitosamente", Toast.LENGTH_SHORT).show()
 
@@ -98,17 +114,19 @@ class activityAddFamily: AppCompatActivity () {
                                 db.collection(collection).document("users").collection(idFamily).document(
                                     usermail).set(
                                     hashMapOf(
+                                        "name" to userName,
                                         "user" to usermail,
                                         "IdFamily" to idFamily,
                                         "Rol" to Rol,
-                                    )
+                                    ), SetOptions.merge()
                                 )
                                 db.collection("users").document(usermail).set(
                                     hashMapOf(
+                                        "name" to userName!!,
                                         "user" to usermail,
                                         "IdFamily" to idFamily,
                                         "Rol" to Rol,
-                                    )
+                                    ), SetOptions.merge()
                                 )
                                 Toast.makeText(
                                     this,
@@ -126,8 +144,7 @@ class activityAddFamily: AppCompatActivity () {
                         }
                     }
             } else Toast.makeText(this, "hay opciones sin seleccionar", Toast.LENGTH_SHORT).show()
-
-
+            onBackPressed()
     }
 
 }

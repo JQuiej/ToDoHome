@@ -6,6 +6,8 @@
     <string name="facebook_client_token">c023816b58e8d71fa01fe20fa0e83582</string>
 
     <string name="app_name">ToDoHome</string>
+    <string name="titleExpensive">Maneja tus Gastos Familiares</string>
+    <string name="tittle_Location">ToDoHome: Encuentra a los tuyos en un instante</string>
     <string name="App_Descripcion">Tu centro de control familiar para organizar tareas, compartir responsabilidades y crear un hogar más armonioso.</string>
     <string name="Facebook">con Facebook</string>
     <string name="Google">con Google</string>
@@ -40,6 +42,8 @@
     <string name="navigation_drawer_close">Cerrar</string>
     <string name="menu_offercourse">Quieres estudiar en la UMG?</string>
     <string name="bar_title">To Do Home</string>
+    <string name="IdFamily">Necesitas Agregarte a una Familia</string>
+    <string name="noIdFamily">Como no pertecenes a ninguna Familia no puedes acceder a estas opciones. Para agregarte a una Familia Presiona ok para que puedas Unirte o Crear una</string>
     <string name="textapp">Empoderamos a las familias para que administren sus finanzas con confianza y facilidad.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
