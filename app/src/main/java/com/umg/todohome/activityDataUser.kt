@@ -159,7 +159,7 @@ class activityDataUser: AppCompatActivity() {
     }
 
     private fun loadDataUser() {
-            var db = FirebaseFirestore.getInstance()
+        var db = FirebaseFirestore.getInstance()
 
         CoroutineScope(Dispatchers.IO).launch {
             val documents = try {
@@ -183,9 +183,9 @@ class activityDataUser: AppCompatActivity() {
                         userDate = ""
                         userAddres = ""
                     }
-                        name.setText(userName)
-                        date.setText(userDate)
-                        addres.setText(userAddres)
+                    name.setText(userName)
+                    date.setText(userDate)
+                    addres.setText(userAddres)
                 }
             }
             loadImage()
