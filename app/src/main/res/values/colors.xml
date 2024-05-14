@@ -14,9 +14,10 @@
     <color name="azul_highlight">#567797</color>
     <color name="accent_color">#FFD700</color>
     <color name="text_primary">#FFFFFF</color>
-    <color name="text_secondary">#888888</color>
+    <color name="text_secondary">#A3888888</color>
     <color name="text_secondary1">#45484a</color>
     <color name="error_color">#FF0000</color>
-    <color name="success_color">#00FF00</color>
+    <color name="Important">#FF9900 </color>
+    <color name="gray">#E6E6E6 </color>
 
 </resources>

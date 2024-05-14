@@ -7,8 +7,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_field">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginTop="11dp">
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -22,31 +28,84 @@
                 android:layout_gravity="start"
                 android:layout_marginStart="25dp"
                 android:text="titulo"
-                android:textColor="@color/background_highlight"
-                android:textSize="15sp" />
+                android:textColor="@color/background_base"
+                android:textSize="16sp" />
 
         </LinearLayout>
 
         <TextView
             android:id="@+id/txdescriptask"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
+            android:layout_width="280dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="3dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="-210dp"
+            android:layout_marginStart="35dp"
             android:text="descriccion"
             android:textColor="@color/background_highlight"
-            android:textSize="15sp" />
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="35dp"
+                android:text="Prioridad:"
+                android:textAlignment="center"
+                android:textColor="@color/background_highlight"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txtRelevance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:text="Alta"
+                android:textAlignment="center"
+                android:textColor="@color/background_highlight"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txDatetask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:textAlignment="textStart"
+                android:text="20-12-2023"
+                android:textColor="@color/background_highlight"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginTop="28dp"
+        android:paddingStart="9dp"
+        android:paddingEnd="20dp">
 
         <Button
             android:id="@+id/btdonetask"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_gravity="center_vertical"
-            android:textSize="15sp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/rounded_logo_background"
-            android:text="Realizada" />
+            android:backgroundTint="@color/azul_highlight"
+            android:drawableStart="@drawable/done_task"
+            android:onClick="GoGoogle"
+            android:paddingTop="10dp"
+            android:paddingStart="1dp"/>
 
-    </LinearLayout>
+    </RelativeLayout>
+
 </androidx.cardview.widget.CardView>

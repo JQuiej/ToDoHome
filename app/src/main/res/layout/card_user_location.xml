@@ -2,13 +2,14 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/card_location"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:backgroundTint="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="11dp">
+        android:layout_marginTop="15dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageUserlt"
@@ -35,7 +36,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_gravity="center_vertical"
-            android:textSize="9sp"
+            android:textSize="7sp"
             android:background="@drawable/rounded_logo_background"
             android:text="Ubicacion" />
 

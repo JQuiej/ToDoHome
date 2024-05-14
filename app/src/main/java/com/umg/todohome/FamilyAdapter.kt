@@ -11,6 +11,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.umg.todohome.activityDataUser.Companion.uriImage
+import com.umg.todohome.loginActivity.Companion.usermail
 
 class FamilyAdapter(private val list: ArrayList<Integrants>): RecyclerView.Adapter<FamilyAdapter.MyViewHolder>(){
 
@@ -27,10 +28,9 @@ class FamilyAdapter(private val list: ArrayList<Integrants>): RecyclerView.Adapt
         val family: Integrants = list[position]
             holder.name.text = family.name.toString()
             holder.rol.text = family.Rol.toString()
+        val email = family.user.toString()
 
-        var uri = family.uriImage.toString()
-
-        val storageRef = FirebaseStorage.getInstance().getReference("$uri")
+        val storageRef = FirebaseStorage.getInstance().getReference("fotos/${email}/image/ImageUser")
 
         storageRef.downloadUrl
             .addOnSuccessListener { downloadUrl ->

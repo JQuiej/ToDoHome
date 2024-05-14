@@ -8,9 +8,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
+import com.umg.todohome.loginActivity.Companion.usermail
 
 class AdapterFamilyLocation(private val list: ArrayList<Integrants>): RecyclerView.Adapter<AdapterFamilyLocation.MyViewHolder>() {
 
@@ -22,27 +26,39 @@ class AdapterFamilyLocation(private val list: ArrayList<Integrants>): RecyclerVi
     }
 
     override fun onBindViewHolder(holder: AdapterFamilyLocation.MyViewHolder, position: Int) {
+
         val family: Integrants = list[position]
 
-        holder.name.text = family.name.toString()
+        val email = family.user.toString()
 
-        var uri = family.uriImage.toString()
+        /*if(email != usermail){*/
 
-        val storageRef = FirebaseStorage.getInstance().getReference("$uri")
+            holder.name.text = family.name.toString()
 
-        storageRef.downloadUrl
-            .addOnSuccessListener { downloadUrl ->
-                Glide.with(context)
-                    .load(downloadUrl)
-                    .fitCenter()
-                    .centerCrop()
-                    .into(holder.image)
+
+            val storageRef = FirebaseStorage.getInstance().getReference("fotos/$email/image/ImageUser")
+
+            storageRef.downloadUrl
+                .addOnSuccessListener { downloadUrl ->
+                    Glide.with(context)
+                        .load(downloadUrl)
+                        .fitCenter()
+                        .centerCrop()
+                        .into(holder.image)
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("TAG", "Error getting download URL:", exception)
+                    // Handle download URL retrieval failure (optional: display error message)
+                }
+
+            holder.getLocation.setOnClickListener{
+                Toast.makeText(context, "$email", Toast.LENGTH_SHORT).show()
             }
-            .addOnFailureListener { exception ->
-                Log.w("TAG", "Error getting download URL:", exception)
-                // Handle download URL retrieval failure (optional: display error message)
-            }
-
+        /*}else{
+            holder.image.isVisible = false
+            holder.getLocation.isVisible = false
+            holder.cardView.isVisible = false
+        }*/
     }
 
     override fun getItemCount(): Int {
@@ -50,6 +66,7 @@ class AdapterFamilyLocation(private val list: ArrayList<Integrants>): RecyclerVi
     }
 
     public class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        val cardView: CardView = itemView.findViewById(R.id.card_location)
         val name: TextView = itemView.findViewById(R.id.txNameUserFamilylt)
         val getLocation: Button = itemView.findViewById(R.id.GetLocation)
         val image: ImageView = itemView.findViewById(R.id.imageUserlt)

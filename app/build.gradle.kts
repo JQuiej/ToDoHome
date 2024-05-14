@@ -64,6 +64,8 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.facebook.android:facebook-android-sdk:9.1.1")
 
+    implementation("androidx.appcompat:appcompat:1.5.1")
+
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     implementation("de.hdodenhof:circleimageview:3.1.0")

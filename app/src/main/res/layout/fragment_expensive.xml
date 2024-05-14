@@ -1,17 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".expensiveFragment">
+    android:background="@color/white">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/titleExpensive"
+            android:textColor="@color/background_base"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/txTotalExpensive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
+            android:text="Total Q500.00"
+            android:textColor="@color/background_base"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFamilyExpensive"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@color/background_highlight"
-        android:text="Gastos"
-        android:gravity="center"
-        android:textSize="30sp"/>
+        android:layout_marginTop="50dp">
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btAddExpensive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginRight="20dp"
+            android:foregroundGravity="center_vertical"
+            app:srcCompat="@drawable/baseline_add_box_24"
+            app:useCompatPadding="true"
+            app:backgroundTint="@color/background_highlight" />
+
+    </RelativeLayout>
 
 </FrameLayout>

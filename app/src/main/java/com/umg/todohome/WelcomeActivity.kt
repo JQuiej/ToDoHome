@@ -22,8 +22,10 @@ import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.umg.todohome.activityAddFamily.Companion.Rol
 import com.umg.todohome.activityAddFamily.Companion.idFamily
+import com.umg.todohome.activityDataUser.Companion.userName
 import com.umg.todohome.loginActivity.Companion.providerSession
 import com.umg.todohome.loginActivity.Companion.usermail
 import kotlin.properties.Delegates
@@ -52,7 +54,7 @@ class WelcomeActivity : AppCompatActivity() {
         super.onStart()
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
-             inicio(currentUser.email.toString(), currentUser.providerId)
+             inicio(currentUser.email.toString(), currentUser.providerId, "")
         }
     }
     fun ShowAccountCreate(view: View){
@@ -95,7 +97,9 @@ class WelcomeActivity : AppCompatActivity() {
                     mAuth.signInWithCredential(credential).addOnCompleteListener {
                         if (it.isSuccessful){
                             Email = it.result.user?.email.toString()
-                            inicio(Email, "Facebook")
+                            val name = it.result.user?.displayName.toString()
+
+                            inicio(Email, "Facebook", name)
                         }
                         else showError("Facebook")
                     }
@@ -117,9 +121,12 @@ class WelcomeActivity : AppCompatActivity() {
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 Email = account.email!!
+                val name = account.displayName!!
+
                 val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+
                 mAuth.signInWithCredential(credential).addOnCompleteListener{ task ->
-                    if (task.isSuccessful)inicio(Email, "Google")
+                    if (task.isSuccessful)inicio(Email, "Google", name)
                     else Toast.makeText(this, "Error en la conexión con Google", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: ApiException) {
@@ -131,12 +138,38 @@ class WelcomeActivity : AppCompatActivity() {
     private fun showError (provider: String){
         Toast.makeText(this, "Error en la conexión con $provider", Toast.LENGTH_SHORT).show()
     }
-    private fun inicio(email: String, provider: String) {
+    private fun inicio(email: String, provider: String, name: String) {
         usermail = email
         providerSession = provider
+
+        if(!name.isEmpty()){
+            updateUserName(name)
+        }
+
 
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
 
+    }
+    fun updateUserName(name: String) {
+        val dbRegister = FirebaseFirestore.getInstance()
+
+        val userDocRef = dbRegister.collection("users").document(usermail)
+
+        // Create or update the user document with a server-side merge
+        val updateMap = hashMapOf<String, Any>(
+            "name" to name,
+            "user" to usermail
+        )
+
+        userDocRef.set(updateMap, SetOptions.merge())
+            .addOnSuccessListener {
+                // Update successful
+                Log.d("Firestore", "Name updated successfully!")
+            }
+            .addOnFailureListener { exception ->
+                // Update failed (or document creation failed)
+                Log.w("Firestore", "Error updating name: $exception")
+            }
     }
 }

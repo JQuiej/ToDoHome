@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.umg.todohome.activityAddFamily.Companion.idFamily
+import com.umg.todohome.loginActivity.Companion.usermail
 
 
 class locationFragment : Fragment() {

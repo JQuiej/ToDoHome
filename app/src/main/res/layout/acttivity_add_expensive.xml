@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/drawer_layout_expensive"
+    tools:context=".ActivityAddTask">
+
+
+    <LinearLayout
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-4dp">
+
+        <include
+            android:id="@+id/app_bar"
+            layout="@layout/app_bar_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingStart="20dp"
+            android:text="  Agregar Gastos"
+            android:textColor="@color/background_highlight"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="190dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/poster_task" />
+
+
+        <EditText
+            android:id="@+id/txtitleExpensive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:hint="Titulo"
+            android:textColorHint="@color/background_highlight"
+            android:textColor="@color/background_highlight"
+            android:textSize="16sp" />
+
+
+        <EditText
+            android:id="@+id/txdescripExpensive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:hint="Descripcion"
+            android:textColorHint="@color/background_highlight"
+            android:textColor="@color/background_highlight"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/txcategoriaExpensive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:hint="Categoria"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:textColorHint="@color/background_highlight"
+            android:textColor="@color/background_highlight"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/txExpensive"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:inputType="numberDecimal"
+            android:hint="Cantidad"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="15dp"
+            android:textColorHint="@color/background_highlight"
+            android:textColor="@color/background_highlight"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="50dp"
+            android:background="@drawable/rounded_logo_background"
+            android:onClick="addExpensive"
+            android:text="Agregar Gastos" />
+
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

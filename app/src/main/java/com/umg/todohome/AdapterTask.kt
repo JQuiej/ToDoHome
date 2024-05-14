@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 
 class AdapterTask(private val list: ArrayList<Task>): RecyclerView.Adapter<AdapterTask.MyViewHolder>() {
@@ -24,7 +25,9 @@ class AdapterTask(private val list: ArrayList<Task>): RecyclerView.Adapter<Adapt
 
         holder.title.text = task.title.toString()
         holder.descr.text = task.description.toString()
-
+        holder.date.text = task.date.toString()
+        holder.priority.text = task.importance.toString()
+        //holder.btDone.isVisible = false
     }
 
     override fun getItemCount(): Int {
@@ -34,6 +37,8 @@ class AdapterTask(private val list: ArrayList<Task>): RecyclerView.Adapter<Adapt
     public class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
         val title: TextView = itemView.findViewById(R.id.txtitletask)
         val descr: TextView = itemView.findViewById(R.id.txdescriptask)
+        val date: TextView = itemView.findViewById(R.id.txDatetask)
+        val priority: TextView = itemView.findViewById(R.id.txtRelevance)
         val btDone: Button = itemView.findViewById(R.id.btdonetask)
     }
 }

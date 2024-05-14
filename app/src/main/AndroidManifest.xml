@@ -57,6 +57,11 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
+            android:name=".ActivityAddExpensive"
+            android:exported="true"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".loginActivity"
             android:exported="true"
             android:screenOrientation="portrait"/>
