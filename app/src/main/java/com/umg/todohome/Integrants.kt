@@ -5,5 +5,6 @@ data class Integrants(
     var user: String ?= null,
     var name: String ?= null,
     var Rol: String ?= null,
+    var location: String ?= null,
 
 )

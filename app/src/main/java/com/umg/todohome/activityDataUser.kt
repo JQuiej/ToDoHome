@@ -1,10 +1,14 @@
 package com.umg.todohome
 
+import android.Manifest
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -26,7 +30,16 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.io.File
 import android.widget.ImageView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.Granularity
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FileDownloadTask
 
@@ -38,6 +51,14 @@ class activityDataUser: AppCompatActivity() {
         var userAddres: String? = null
         var uriImage: String? = null
     }
+
+    var ubicacionActual: Location? = null
+
+    private val CODIGO_PERMISO_SEGUNDO_PLANO = 100
+    private var isPermisos = false
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
 
     lateinit var name: EditText
     lateinit var date: EditText
@@ -62,6 +83,8 @@ class activityDataUser: AppCompatActivity() {
 
         loadDataUser()
         loadImage()
+        requestLocationPermission()
+        isLocationPermissionGranted()
     }
     fun SavePhotos(view: View){
         saveImage()
@@ -70,6 +93,7 @@ class activityDataUser: AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         loadImage()
+
     }
     private fun saveImage(){
         val intent = Intent(Intent.ACTION_PICK)
@@ -188,6 +212,92 @@ class activityDataUser: AppCompatActivity() {
     }
     private fun deleteImage() {
 
+    }
+
+    private fun isLocationPermissionGranted() = ContextCompat.checkSelfPermission(
+        this,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    ) == PackageManager.PERMISSION_GRANTED
+    private fun requestLocationPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        ) {
+            Toast.makeText(this, "Ir a ajustes y acepta los permisos", Toast.LENGTH_SHORT).show()
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                CODIGO_PERMISO_SEGUNDO_PLANO
+            )
+        }
+    }
+    private fun onPermisosConcedidos() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        try {
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                if (it != null) {
+                    uploadlocation(it)
+                } else {
+                    Toast.makeText(this, "No se puede obtener la ubicacion", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            val locationRequest = LocationRequest.Builder(
+                Priority.PRIORITY_HIGH_ACCURACY,
+                180000
+            ).apply {
+                setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
+                setWaitForAccurateLocation(true)
+            }.build()
+
+            locationCallback = object : LocationCallback() {
+                override fun onLocationResult(p0: LocationResult) {
+                    super.onLocationResult(p0)
+
+                    for (location in p0.locations) {
+                        uploadlocation(location)
+                    }
+                }
+            }
+
+            fusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
+        } catch (_: SecurityException) {
+
+        }
+    }
+    private fun uploadlocation(ubicacion: Location){
+
+        val location = "${ubicacion.latitude}, ${ubicacion.longitude}"
+
+        var collection = "Family"
+        var db = FirebaseFirestore.getInstance()
+        db.collection(collection).document("users").collection(idFamily).document(usermail).set(
+            hashMapOf(
+                "location" to location
+            ) , SetOptions.merge()
+        )
+    }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if(requestCode == CODIGO_PERMISO_SEGUNDO_PLANO) {
+            val todosPermisosConcedidos = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+
+            if (grantResults.isNotEmpty() && todosPermisosConcedidos) {
+                isPermisos = true
+                onPermisosConcedidos()
+            }
+        }
     }
 
 
