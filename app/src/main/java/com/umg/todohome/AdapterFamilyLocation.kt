@@ -53,6 +53,7 @@ class AdapterFamilyLocation(private val list: ArrayList<Integrants>): RecyclerVi
                     // Handle download URL retrieval failure (optional: display error message)
                 }
 
+
             holder.getLocation.setOnClickListener {
                 val location = family.location.toString()
 

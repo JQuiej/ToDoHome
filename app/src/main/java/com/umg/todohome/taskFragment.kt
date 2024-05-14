@@ -1,20 +1,36 @@
 package com.umg.todohome
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.Granularity
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.SetOptions
 import com.umg.todohome.activityAddFamily.Companion.idFamily
+import com.umg.todohome.loginActivity.Companion.usermail
 
 class taskFragment : Fragment() {
 
@@ -22,6 +38,8 @@ class taskFragment : Fragment() {
     private lateinit var taskArraylist: ArrayList<Task>
     private lateinit var adapterTask: AdapterTask
     private lateinit var btAddTask: FloatingActionButton
+
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,6 +73,7 @@ class taskFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         loadRecycleView()
+
     }
     @SuppressLint("NotifyDataSetChanged")
     private fun loadRecycleView() {
