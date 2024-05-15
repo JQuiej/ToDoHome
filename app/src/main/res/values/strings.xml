@@ -42,8 +42,10 @@
     <string name="navigation_drawer_close">Cerrar</string>
     <string name="menu_offercourse">Quieres estudiar en la UMG?</string>
     <string name="bar_title">To Do Home</string>
+    <string name="titleSignOut">Quieres Cerrar Sesion?</string>
+    <string name="signOutText">Si cierras sesion ya no podras acceder a los datos de esta Familia hasta que inicies nuevamente con tu cuenta</string>
     <string name="IdFamily">Necesitas Agregarte a una Familia</string>
-    <string name="noIdFamily">Como no pertecenes a ninguna Familia no puedes acceder a estas opciones. Para agregarte a una Familia Presiona ok para que puedas Unirte o Crear una</string>
+    <string name="noIdFamily">Como no pertecenes a ninguna Familia no puedes acceder a estas opciones. Para agregarte a una Familia Presiona aceptar para que puedas Unirte o Crear una</string>
     <string name="textapp">Empoderamos a las familias para que administren sus finanzas con confianza y facilidad.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -52,14 +52,6 @@ class activityDataUser: AppCompatActivity() {
         var uriImage: String? = null
     }
 
-    var ubicacionActual: Location? = null
-
-    private val CODIGO_PERMISO_SEGUNDO_PLANO = 100
-    private var isPermisos = false
-
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var locationCallback: LocationCallback
-
     lateinit var name: EditText
     lateinit var date: EditText
     lateinit var addres: EditText
@@ -83,8 +75,7 @@ class activityDataUser: AppCompatActivity() {
 
         loadDataUser()
         loadImage()
-        requestLocationPermission()
-        isLocationPermissionGranted()
+
     }
     fun SavePhotos(view: View){
         saveImage()
@@ -136,16 +127,13 @@ class activityDataUser: AppCompatActivity() {
         userAddres = addres.text.toString()
 
         var db = FirebaseFirestore.getInstance()
-        /*var collection = "Family"
+        var collection = "Family"
         db.collection(collection).document("users").collection(idFamily).document(
             usermail).set(
             hashMapOf(
-                "user" to usermail,
                 "name" to userName,
-                "date" to userDate,
-                "addres" to userAddres,
             ) , SetOptions.merge()
-        )*/
+        )
         db.collection("users").document(usermail).set(
             hashMapOf(
                 "user" to usermail,
@@ -203,6 +191,7 @@ class activityDataUser: AppCompatActivity() {
                     .into(Image)
             }
             .addOnFailureListener { exception ->
+                Image.setImageResource(R.drawable.user_image)
                 Log.w("TAG", "Error getting download URL:", exception)
                 // Handle download URL retrieval failure (optional: display error message)
             }
@@ -212,93 +201,21 @@ class activityDataUser: AppCompatActivity() {
     }
     private fun deleteImage() {
 
-    }
+        val storageRef = FirebaseStorage.getInstance().getReference("fotos/$usermail/image/ImageUser")
 
-    private fun isLocationPermissionGranted() = ContextCompat.checkSelfPermission(
-        this,
-        Manifest.permission.ACCESS_FINE_LOCATION
-    ) == PackageManager.PERMISSION_GRANTED
-    private fun requestLocationPermission() {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            )
-        ) {
-            Toast.makeText(this, "Ir a ajustes y acepta los permisos", Toast.LENGTH_SHORT).show()
-        } else {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                CODIGO_PERMISO_SEGUNDO_PLANO
-            )
-        }
-    }
-    private fun onPermisosConcedidos() {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        try {
-            fusedLocationClient.lastLocation.addOnSuccessListener {
-                if (it != null) {
-                    uploadlocation(it)
-                } else {
-                    Toast.makeText(this, "No se puede obtener la ubicacion", Toast.LENGTH_SHORT).show()
-                }
+        Toast.makeText(this, "Eliminando Foto", Toast.LENGTH_SHORT).show()
+
+
+        storageRef.delete()
+            .addOnSuccessListener {
+                println("Documento eliminado exitosamente")
+                Toast.makeText(this, "Foto Eliminada", Toast.LENGTH_SHORT).show()
+                loadImage()
+            }
+            .addOnFailureListener { e ->
+                println("Error al eliminar documento: ${e.message}")
             }
 
-            val locationRequest = LocationRequest.Builder(
-                Priority.PRIORITY_HIGH_ACCURACY,
-                180000
-            ).apply {
-                setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
-                setWaitForAccurateLocation(true)
-            }.build()
-
-            locationCallback = object : LocationCallback() {
-                override fun onLocationResult(p0: LocationResult) {
-                    super.onLocationResult(p0)
-
-                    for (location in p0.locations) {
-                        uploadlocation(location)
-                    }
-                }
-            }
-
-            fusedLocationClient.requestLocationUpdates(
-                locationRequest,
-                locationCallback,
-                Looper.getMainLooper()
-            )
-        } catch (_: SecurityException) {
-
-        }
     }
-    private fun uploadlocation(ubicacion: Location){
-
-        val location = "${ubicacion.latitude}, ${ubicacion.longitude}"
-
-        var collection = "Family"
-        var db = FirebaseFirestore.getInstance()
-        db.collection(collection).document("users").collection(idFamily).document(usermail).set(
-            hashMapOf(
-                "location" to location
-            ) , SetOptions.merge()
-        )
-    }
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if(requestCode == CODIGO_PERMISO_SEGUNDO_PLANO) {
-            val todosPermisosConcedidos = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
-
-            if (grantResults.isNotEmpty() && todosPermisosConcedidos) {
-                isPermisos = true
-                onPermisosConcedidos()
-            }
-        }
-    }
-
 
 }

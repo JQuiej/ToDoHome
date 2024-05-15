@@ -3,11 +3,15 @@ package com.umg.todohome
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
@@ -33,6 +37,19 @@ class locationFragment : Fragment() {
         familyArrayList = arrayListOf()
         AdapterFamily = AdapterFamilyLocation(familyArrayList)
         recyclerView.adapter = AdapterFamily
+
+
+
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            var viewRecycle = view.findViewById<LinearLayout>(R.id.RecycleViewData)
+            var loading = view.findViewById<LinearLayout>(R.id.loadingCard)
+
+            viewRecycle.visibility = View.VISIBLE
+            loading.visibility = View.GONE
+
+        }, 500)
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

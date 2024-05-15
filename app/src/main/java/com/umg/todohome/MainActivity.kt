@@ -17,7 +17,9 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -27,6 +29,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -45,6 +48,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.umg.todohome.activityAddFamily.Companion.Rol
 import com.umg.todohome.activityAddFamily.Companion.idFamily
 import com.umg.todohome.activityDataUser.Companion.userAddres
@@ -63,12 +67,30 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var binding: ActivityMainBinding
     private lateinit var imageUserbar: ImageView
 
+    var ubicacionActual: Location? = null
+
+    private val CODIGO_PERMISO_SEGUNDO_PLANO = 100
+    private var isPermisos = false
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private lateinit var locationCallback: LocationCallback
+
+    lateinit var name: EditText
+    lateinit var date: EditText
+    lateinit var addres: EditText
+    lateinit var Image: ImageView
+    lateinit var mStorage: StorageReference
+
+    private val GALLERY_INTENT = 2
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.progressBar.visibility = View.VISIBLE
 
         verifyFamily(usermail)
         initToolBar()
@@ -95,13 +117,106 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             true
         }
         fragmentManager = supportFragmentManager
-        openFragment(fragment_welcome())
+
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            binding.progressBar.visibility = View.GONE
+            openFragment(locationFragment())
+
+        }, 1800)
+
 
     }
 
     override fun onResume() {
         super.onResume()
         loadImage()
+        verifyFamily(usermail)
+    }
+    private fun isLocationPermissionGranted() = ContextCompat.checkSelfPermission(
+        this,
+        Manifest.permission.ACCESS_FINE_LOCATION
+    ) == PackageManager.PERMISSION_GRANTED
+    private fun requestLocationPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            )
+        ) {
+            Toast.makeText(this, "Ir a ajustes y acepta los permisos", Toast.LENGTH_SHORT).show()
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                CODIGO_PERMISO_SEGUNDO_PLANO
+            )
+        }
+    }
+    private fun onPermisosConcedidos() {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        try {
+            fusedLocationClient.lastLocation.addOnSuccessListener {
+                if (it != null) {
+                    uploadlocation(it)
+                } else {
+                    Toast.makeText(this, "No se puede obtener la ubicacion", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            val locationRequest = LocationRequest.Builder(
+                Priority.PRIORITY_HIGH_ACCURACY,
+                180000
+            ).apply {
+                setGranularity(Granularity.GRANULARITY_PERMISSION_LEVEL)
+                setWaitForAccurateLocation(true)
+            }.build()
+
+            locationCallback = object : LocationCallback() {
+                override fun onLocationResult(p0: LocationResult) {
+                    super.onLocationResult(p0)
+
+                    for (location in p0.locations) {
+                        uploadlocation(location)
+                    }
+                }
+            }
+
+            fusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
+        } catch (_: SecurityException) {
+
+        }
+    }
+    private fun uploadlocation(ubicacion: Location){
+
+        val location = "${ubicacion.latitude}, ${ubicacion.longitude}"
+
+        var collection = "Family"
+        var db = FirebaseFirestore.getInstance()
+        db.collection(collection).document("users").collection(idFamily).document(usermail).set(
+            hashMapOf(
+                "location" to location
+            ) , SetOptions.merge()
+        )
+    }
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if(requestCode == CODIGO_PERMISO_SEGUNDO_PLANO) {
+            val todosPermisosConcedidos = grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+
+            if (grantResults.isNotEmpty() && todosPermisosConcedidos) {
+                isPermisos = true
+                onPermisosConcedidos()
+            }
+        }
     }
     private fun loadImage() {
         val storageRef = FirebaseStorage.getInstance().getReference("fotos/$usermail/image/ImageUser")
@@ -115,6 +230,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     .into(imageUserbar)
             }
             .addOnFailureListener { exception ->
+                imageUserbar.setImageResource(R.drawable.user_image)
                 Log.w("TAG", "Error getting download URL:", exception)
                 // Handle download URL retrieval failure (optional: display error message)
             }
@@ -174,7 +290,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.item_User -> goUserData()
             R.id.item_Family -> goAddFamily()
-            R.id.item_logout -> signOut()
+            R.id.item_logout -> alertSignout()
             R.id.item_anuncio -> ShowExpense()
         }
         binding.drawerLayout.closeDrawer(GravityCompat.START)
@@ -201,6 +317,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             fragmentTransaction.replace(R.id.frame_container, fragment)
             fragmentTransaction.commit()
         }else if (!idFamily.isEmpty()){
+            requestLocationPermission()
+            isLocationPermissionGranted()
             val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.frame_container, fragment)
             fragmentTransaction.commit()
@@ -216,6 +334,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .setPositiveButton(android.R.string.ok,
                 DialogInterface.OnClickListener { dialog, which ->
                     goAddFamily()
+                })
+            .setNegativeButton(android.R.string.cancel,
+                DialogInterface.OnClickListener { dialog, which ->
+                    openFragment(fragment_welcome())
+                })
+            .setCancelable(true)
+            .show()
+    }
+    private fun alertSignout(){
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.titleSignOut))
+            .setMessage(R.string.signOutText)
+            .setInverseBackgroundForced(true)
+            .setPositiveButton(android.R.string.ok,
+                DialogInterface.OnClickListener { dialog, which ->
+                    signOut()
                 })
             .setNegativeButton(android.R.string.cancel,
                 DialogInterface.OnClickListener { dialog, which ->
@@ -243,7 +377,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         userName = ""
         userDate =""
         userAddres = ""
-        imageUserbar.setImageResource(R.drawable.user_image);
+        imageUserbar.setImageResource(R.drawable.user_image)
 
 
         if(providerSession == "Facebook") LoginManager.getInstance().logOut()

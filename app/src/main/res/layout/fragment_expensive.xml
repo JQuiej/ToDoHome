@@ -7,6 +7,7 @@
     android:background="@color/white">
 
     <LinearLayout
+        android:id="@+id/viewdataExpensive"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -37,6 +38,34 @@
         android:layout_height="match_parent"
         android:layout_marginTop="50dp">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        app:shimmer_auto_start="true"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            style="@style/Theme.ToDoHome"
+            android:layout_marginTop="55dp"
+            android:id="@+id/loadingCardExpensive"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/card_loading_expensive"/>
+            <include layout="@layout/card_loading_expensive"/>
+            <include layout="@layout/card_loading_expensive"/>
+            <include layout="@layout/card_loading_expensive"/>
+            <include layout="@layout/card_loading_expensive"/>
+            <include layout="@layout/card_loading_expensive"/>
+            <include layout="@layout/card_loading_expensive"/>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"

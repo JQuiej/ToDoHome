@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    style="@style/Theme.ToDoHome"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".locationFragment">
 
     <LinearLayout
+        android:id="@+id/RecycleViewData"
         style="@style/Theme.ToDoHome"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:text="@string/tittle_Location"
-                android:textAlignment="center"
-                android:textColor="@color/background_highlight" />
-        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/tittle_Location"
+            android:textAlignment="center"
+            android:textColor="@color/background_highlight" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        style="@style/Theme.AppCompat.Light.NoActionBar"
         android:id="@+id/rvFamilyLocation"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,4 +37,36 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-</FrameLayout>
+    <com.facebook.shimmer.ShimmerFrameLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        app:shimmer_auto_start="true"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            style="@style/Theme.ToDoHome"
+            android:layout_marginTop="35dp"
+            android:id="@+id/loadingCard"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/card_loading"/>
+            <include layout="@layout/card_loading"/>
+            <include layout="@layout/card_loading"/>
+            <include layout="@layout/card_loading"/>
+            <include layout="@layout/card_loading"/>
+            <include layout="@layout/card_loading"/>
+            <include layout="@layout/card_loading"/>
+            <include layout="@layout/card_loading"/>
+
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
