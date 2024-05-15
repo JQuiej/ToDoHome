@@ -7,6 +7,7 @@
     android:background="@color/white">
 
     <LinearLayout
+        android:id="@+id/viewDataTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -18,22 +19,24 @@
             <Button
                 android:id="@+id/taskPendin"
                 android:layout_marginTop="5dp"
-                android:layout_width="210dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:textSize="9sp"
                 android:backgroundTint="@color/background_highlight"
-                android:text="Pendientes" />
+                android:text="Pendientes"
+                android:layout_weight="1"  />
 
             <Button
                 android:id="@+id/taskDone"
-                android:layout_width="203dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginTop="5dp"
                 android:backgroundTint="@color/background_highlight"
                 android:text="Realizadas"
-                android:textSize="9sp" />
+                android:textSize="9sp"
+                android:layout_weight="1"  />
 
         </LinearLayout>
 
@@ -45,6 +48,35 @@
         android:layout_height="match_parent"
         android:layout_marginTop="50dp">
     </androidx.recyclerview.widget.RecyclerView>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        app:shimmer_auto_start="true"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            style="@style/Theme.ToDoHome"
+            android:layout_marginTop="55dp"
+            android:id="@+id/loadingCardTask"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/card_loading_task"/>
+            <include layout="@layout/card_loading_task"/>
+            <include layout="@layout/card_loading_task"/>
+            <include layout="@layout/card_loading_task"/>
+            <include layout="@layout/card_loading_task"/>
+            <include layout="@layout/card_loading_task"/>
+            <include layout="@layout/card_loading_task"/>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

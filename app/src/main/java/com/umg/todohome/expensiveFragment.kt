@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -48,6 +51,17 @@ class expensiveFragment : Fragment() {
             val intent = Intent(requireActivity(), ActivityAddExpensive::class.java)
             startActivity(intent)
         }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+
+            var viewRecycle = view.findViewById<LinearLayout>(R.id.viewdataExpensive)
+            var loading = view.findViewById<LinearLayout>(R.id.loadingCardExpensive)
+
+            viewRecycle.visibility = View.VISIBLE
+            loading.visibility = View.GONE
+            updateTotals()
+
+        }, 700)
 
     }
     override fun onCreateView(

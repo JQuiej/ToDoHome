@@ -76,4 +76,6 @@ dependencies {
 
     implementation ("com.google.android.material:material:1.7.0")
 
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
+
 }
