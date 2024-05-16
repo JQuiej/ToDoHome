@@ -61,7 +61,7 @@ class expensiveFragment : Fragment() {
             loading.visibility = View.GONE
             updateTotals()
 
-        }, 700)
+        }, 800)
 
     }
     override fun onCreateView(
@@ -75,12 +75,10 @@ class expensiveFragment : Fragment() {
     override fun onPause() {
         super.onPause()
         totalEx = 0.00
-        expenseArrayList.clear()
     }
     override fun onResume() {
         super.onResume()
         loadRecycleView()
-        updateTotals()
     }
     @SuppressLint("NotifyDataSetChanged")
     private fun loadRecycleView() {

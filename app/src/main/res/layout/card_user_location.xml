@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="55dp"
         android:layout_marginTop="15dp">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -20,15 +20,51 @@
             android:src="@drawable/user_image"
             app:shapeAppearanceOverlay="@style/circular" />
 
-        <TextView
-            android:id="@+id/txNameUserFamilylt"
-            android:layout_width="220dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="3dp"
-            android:layout_gravity="center_vertical"
-            android:textSize="15sp"
-            android:textColor="@color/background_highlight"
-            />
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txNameUserFamilylt"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_gravity="center_vertical"
+                android:textSize="15sp"
+                android:textColor="@color/background_highlight"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginStart="3dp"
+                    android:layout_gravity="center_vertical"
+                    android:text="ultima Localizacion: "
+                    android:textSize="8sp"
+                    android:textColor="@color/background_highlight"
+                    />
+
+                <TextView
+                    android:id="@+id/txdateUserlocation"
+                    android:layout_width="105dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="8sp"
+                    android:textColor="@color/background_highlight"
+                    />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
         <Button
             android:id="@+id/GetLocation"
             android:layout_width="match_parent"

@@ -59,6 +59,10 @@ import com.umg.todohome.loginActivity.Companion.providerSession
 import com.umg.todohome.loginActivity.Companion.usermail
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.util.Date
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
@@ -123,7 +127,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.progressBar.visibility = View.GONE
             openFragment(locationFragment())
 
-        }, 1800)
+        }, 3000)
 
 
     }
@@ -193,12 +197,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private fun uploadlocation(ubicacion: Location){
 
         val location = "${ubicacion.latitude}, ${ubicacion.longitude}"
+        val date = SimpleDateFormat("dd/MM/yyyy").format(Date())
+        val time =  LocalTime.now()
+        val timeFormatter = DateTimeFormatter.ofPattern("h:mm a")
+        val formattedTime = timeFormatter.format(LocalTime.now())
 
         var collection = "Family"
         var db = FirebaseFirestore.getInstance()
         db.collection(collection).document("users").collection(idFamily).document(usermail).set(
             hashMapOf(
-                "location" to location
+                "location" to location,
+                "date" to "$date a las $formattedTime"
             ) , SetOptions.merge()
         )
     }

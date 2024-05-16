@@ -12,7 +12,7 @@
         android:background="@drawable/rounded_field">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:orientation="vertical">
 
@@ -35,8 +35,8 @@
 
         <TextView
             android:id="@+id/txdescriptask"
-            android:layout_width="260dp"
-            android:layout_height="38dp"
+            android:layout_width="250dp"
+            android:layout_height="35dp"
             android:layout_marginTop="3dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="35dp"
@@ -53,10 +53,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginStart="35dp"
                 android:text="Prioridad:"
-                android:textAlignment="center"
                 android:textColor="@color/background_highlight"
                 android:textSize="10sp" />
 
@@ -64,10 +62,8 @@
                 android:id="@+id/txtRelevance"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
                 android:text="Alta"
-                android:textAlignment="center"
                 android:textColor="@color/background_highlight"
                 android:textSize="10sp" />
 
@@ -78,6 +74,25 @@
                 android:layout_marginStart="25dp"
                 android:textAlignment="textStart"
                 android:text="20-12-2023"
+                android:textColor="@color/background_highlight"
+                android:textSize="10sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:textAlignment="textStart"
+                android:text="usuario:"
+                android:textColor="@color/background_highlight"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txuserTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:textAlignment="textStart"
+                android:text="user"
                 android:textColor="@color/background_highlight"
                 android:textSize="10sp" />
 

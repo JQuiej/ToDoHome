@@ -41,20 +41,6 @@
             android:layout_marginTop="20dp"
             android:src="@drawable/poster_task" />
 
-
-        <EditText
-            android:id="@+id/txtitleExpensive"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:hint="Titulo"
-            android:textColorHint="@color/background_highlight"
-            android:textColor="@color/background_highlight"
-            android:textSize="16sp" />
-
-
         <EditText
             android:id="@+id/txdescripExpensive"
             android:layout_width="match_parent"

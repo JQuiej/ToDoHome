@@ -32,23 +32,14 @@
                     android:text="Categoria"
                     android:textColor="@color/background_base"
                     android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/txtitleExpense"
-                    android:layout_width="220dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginStart="35dp"
-                    android:text="Title"
-                    android:textColor="@color/background_base"
-                    android:textSize="14sp" />
+                >
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/txdescripExpense"
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
+                android:layout_width="210dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="3dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="35dp"
@@ -65,10 +56,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="35dp"
                     android:text="user:"
-                    android:textAlignment="center"
                     android:textColor="@color/background_highlight"
                     android:textSize="10sp" />
 
@@ -76,10 +65,8 @@
                     android:id="@+id/txExpenseUser"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
                     android:layout_marginStart="5dp"
                     android:text="Jose Pablo Quiej Ramirez"
-                    android:textAlignment="center"
                     android:textColor="@color/background_highlight"
                     android:textSize="10sp" />
 
@@ -112,7 +99,7 @@
             android:layout_height="wrap_content"
             android:text="Q50.00"
             android:textColor="@color/background_base"
-            android:textSize="25sp"/>
+            android:textSize="23sp"/>
 
     </RelativeLayout>
 

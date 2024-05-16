@@ -27,6 +27,7 @@ class AdapterTask(private val list: ArrayList<Task>): RecyclerView.Adapter<Adapt
         holder.descr.text = task.description.toString()
         holder.date.text = task.date.toString()
         holder.priority.text = task.importance.toString()
+        holder.userName.text = task.name.toString()
         //holder.btDone.isVisible = false
     }
 
@@ -39,6 +40,7 @@ class AdapterTask(private val list: ArrayList<Task>): RecyclerView.Adapter<Adapt
         val descr: TextView = itemView.findViewById(R.id.txdescriptask)
         val date: TextView = itemView.findViewById(R.id.txDatetask)
         val priority: TextView = itemView.findViewById(R.id.txtRelevance)
+        val userName: TextView = itemView.findViewById(R.id.txuserTask)
         val btDone: Button = itemView.findViewById(R.id.btdonetask)
     }
 }

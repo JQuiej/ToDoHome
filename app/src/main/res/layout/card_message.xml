@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@color/white">
+
+    <LinearLayout
+        android:id="@+id/layoutMessageContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="10dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageUserChat"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/user_image"
+            app:shapeAppearanceOverlay="@style/circular" />
+
+        <LinearLayout
+            android:layout_width="210dp"
+            android:background="@drawable/rounded_logo_background"
+            android:backgroundTint="@color/gray"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txUserNameChat"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:text="Manleo Payes"
+                android:layout_marginStart="3dp"
+                android:paddingRight="10dp"
+                android:paddingTop="2dp"
+                android:paddingStart="20dp"
+                android:layout_gravity="center_vertical"
+                android:textSize="15sp"
+                android:textColor="@color/Important"
+                />
+            <TextView
+                android:id="@+id/contentMessageChat"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:text="mensaje del usuarioajsdflkajsdfkjaskldfjlkasjflkajsldfkjaldkjflaksdjflasflkajsldkfj"
+                android:layout_marginStart="3dp"
+                android:paddingRight="20dp"
+                android:paddingTop="1dp"
+                android:paddingStart="5dp"
+                android:layout_gravity="center_vertical"
+                android:textSize="15sp"
+                android:textColor="@color/background_highlight"
+                />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="right">
+
+                <TextView
+                    android:id="@+id/txTimeChat"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:text="12:12 am"
+                    android:paddingRight="8dp"
+                    android:textColor="@color/background_highlight"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
