@@ -6,3 +6,4 @@ class Message (
     var content: String ?= null,
     var time: String ?= null,
 )
+

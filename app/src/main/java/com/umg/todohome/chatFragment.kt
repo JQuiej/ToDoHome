@@ -1,5 +1,6 @@
 package com.umg.todohome
 
+
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
@@ -121,7 +122,9 @@ class chatFragment : Fragment() {
     fun generateUniqueId(): String {
         val timestamp = SimpleDateFormat("yyyyMMddHHmmssSSS").format(Date()) // Get current timestamp with millisecond precision
         val randomSuffix = Random.nextInt(10000) // Generate a random 4-digit suffix
-        return "$timestamp-$randomSuffix" // Combine timestamp and random suffix
-    }
+
+        return "$timestamp-$randomSuffix" // Combine timestamp and random
+        }
+
 
 }

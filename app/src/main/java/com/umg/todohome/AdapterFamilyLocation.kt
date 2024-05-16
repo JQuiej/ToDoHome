@@ -33,7 +33,7 @@ class AdapterFamilyLocation(private val list: ArrayList<Integrants>): RecyclerVi
 
         val email = family.user.toString()
 
-        /*if(email != usermail){*/
+
 
             holder.name.text = family.name.toString()
             holder.DateLocation.text = family.date.toString()
@@ -55,36 +55,38 @@ class AdapterFamilyLocation(private val list: ArrayList<Integrants>): RecyclerVi
                     // Handle download URL retrieval failure (optional: display error message)
                 }
 
-        holder.getLocation.setOnClickListener {
-            val location = family.location.toString()
 
-            if (location == "null" || location.isEmpty()) {
-                Toast.makeText(context, "El usuario no tiene datos de Ubicación", Toast.LENGTH_SHORT).show()
-            } else {
-                val uriGoogleMaps = Uri.parse("geo:$location?q=$location")
+            holder.getLocation.setOnClickListener {
+                val location = family.location.toString()
 
-                val intent = Intent(Intent.ACTION_VIEW, uriGoogleMaps)
-                intent.setPackage("com.google.android.apps.maps")
-                context.startActivity(intent)
+                if (location == "null" || location.isEmpty()) {
+                    Toast.makeText(context, "El usuario no tiene datos de Ubicación", Toast.LENGTH_SHORT).show()
+                } else {
+                    val uriGoogleMaps = Uri.parse("geo:$location?q=$location")
 
+                    val intent = Intent(Intent.ACTION_VIEW, uriGoogleMaps)
+                    intent.setPackage("com.google.android.apps.maps")
+                    context.startActivity(intent)
+
+                }
             }
+            /*}else{
+                holder.image.isVisible = false
+                holder.getLocation.isVisible = false
+                holder.cardView.isVisible = false
+            }*/
         }
-        /*}else{
-            holder.image.isVisible = false
-            holder.getLocation.isVisible = false
-            holder.cardView.isVisible = false
-        }*/
+
+        override fun getItemCount(): Int {
+            return list.size
+        }
+
+
+        public class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+            val cardView: CardView = itemView.findViewById(R.id.card_location)
+            val name: TextView = itemView.findViewById(R.id.txNameUserFamilylt)
+            val getLocation: Button = itemView.findViewById(R.id.GetLocation)
+            val image: ImageView = itemView.findViewById(R.id.imageUserlt)
+        }
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
-    public class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val cardView: CardView = itemView.findViewById(R.id.card_location)
-        val name: TextView = itemView.findViewById(R.id.txNameUserFamilylt)
-        val DateLocation: TextView = itemView.findViewById(R.id.txdateUserlocation)
-        val getLocation: Button = itemView.findViewById(R.id.GetLocation)
-        val image: ImageView = itemView.findViewById(R.id.imageUserlt)
-    }
-}

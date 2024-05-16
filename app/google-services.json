@@ -22,6 +22,22 @@
           }
         },
         {
+          "client_id": "767397923254-k3e4rsv7uu4psvqna8fks68haggo11us.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.umg.todohome",
+            "certificate_hash": "f4ce5392de416ed3e69bf547a05cb6cd81e6336b"
+          }
+        },
+        {
+          "client_id": "767397923254-p6b0nl6rb08rhvofdssiqm8ngbc2s1qb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.umg.todohome",
+            "certificate_hash": "cbc56223f7f36319a7014291bc86b1b096a3f9be"
+          }
+        },
+        {
           "client_id": "767397923254-h335c7suis8m67rnldcrr57kivtbbghc.apps.googleusercontent.com",
           "client_type": 3
         }

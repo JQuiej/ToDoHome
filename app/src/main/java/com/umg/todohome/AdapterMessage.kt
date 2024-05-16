@@ -3,7 +3,6 @@ package com.umg.todohome
 import android.content.Context
 import android.util.Log
 import android.view.Gravity
-import android.view.Gravity.RIGHT
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +37,6 @@ class AdapterMessage(private val list: ArrayList<Message>): RecyclerView.Adapter
             holder.content.text = message.content.toString()
             holder.time.text = message.time.toString()
 
-            holder.LnContent.gravity = RIGHT
 
         }else{
             holder.user.text = message.name.toString()
@@ -74,6 +72,9 @@ class AdapterMessage(private val list: ArrayList<Message>): RecyclerView.Adapter
         val user: TextView = itemView.findViewById(R.id.txUserNameChat)
         val imageUser: ImageView = itemView.findViewById(R.id.imageUserChat)
         val time: TextView = itemView.findViewById(R.id.txTimeChat)
+
     }
 }
+
+       
 
