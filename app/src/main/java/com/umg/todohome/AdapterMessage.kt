@@ -37,7 +37,6 @@ class AdapterMessage(private val list: ArrayList<Message>): RecyclerView.Adapter
             holder.content.text = message.content.toString()
             holder.time.text = message.time.toString()
 
-            holder.LnContent.setHorizontalGravity(Gravity.END)
 
         }else{
             holder.user.text = message.name.toString()
@@ -73,5 +72,9 @@ class AdapterMessage(private val list: ArrayList<Message>): RecyclerView.Adapter
         val user: TextView = itemView.findViewById(R.id.txUserNameChat)
         val imageUser: ImageView = itemView.findViewById(R.id.imageUserChat)
         val time: TextView = itemView.findViewById(R.id.txTimeChat)
-        }
+
+    }
 }
+
+       
+

@@ -36,6 +36,7 @@ class AdapterFamilyLocation(private val list: ArrayList<Integrants>): RecyclerVi
 
 
             holder.name.text = family.name.toString()
+            holder.DateLocation.text = family.date.toString()
 
 
             val storageRef = FirebaseStorage.getInstance().getReference("fotos/$email/image/ImageUser")
@@ -50,6 +51,7 @@ class AdapterFamilyLocation(private val list: ArrayList<Integrants>): RecyclerVi
                 }
                 .addOnFailureListener { exception ->
                     Log.w("TAG", "Error getting download URL:", exception)
+                    holder.image.setImageResource(R.drawable.user_image)
                     // Handle download URL retrieval failure (optional: display error message)
                 }
 
@@ -79,6 +81,7 @@ class AdapterFamilyLocation(private val list: ArrayList<Integrants>): RecyclerVi
             return list.size
         }
 
+
         public class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
             val cardView: CardView = itemView.findViewById(R.id.card_location)
             val name: TextView = itemView.findViewById(R.id.txNameUserFamilylt)
@@ -86,3 +89,4 @@ class AdapterFamilyLocation(private val list: ArrayList<Integrants>): RecyclerVi
             val image: ImageView = itemView.findViewById(R.id.imageUserlt)
         }
     }
+

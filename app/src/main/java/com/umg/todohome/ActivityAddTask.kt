@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import com.umg.todohome.activityAddFamily.Companion.idFamily
+import com.umg.todohome.activityDataUser.Companion.userName
 import java.text.SimpleDateFormat
 import java.util.Date
 import kotlin.random.Random
@@ -82,6 +83,7 @@ class ActivityAddTask: AppCompatActivity() {
         db.collection(collection).document(idFamily).collection(idFamily).document(idTask).set(
             hashMapOf(
                 "title" to taskT,
+                "name" to userName,
                 "description" to taksD,
                 "importance" to relevance,
                 "status" to status,

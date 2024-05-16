@@ -49,7 +49,6 @@ class ActivityAddExpensive: AppCompatActivity() {
     }
     private fun updateExpensive(){
 
-        title = findViewById(R.id.txtitleExpensive)
         descrip = findViewById(R.id.txdescripExpensive)
         categoria =findViewById(R.id.txcategoriaExpensive)
         cantidad = findViewById(R.id.txExpensive)

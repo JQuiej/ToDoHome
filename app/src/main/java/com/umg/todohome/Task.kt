@@ -6,4 +6,6 @@ data class Task(
     var status: String ?= null,
     var importance: String ?= null,
     var date: String ?= null,
+    var name: String ?= null,
+
 )

@@ -66,7 +66,7 @@ class taskFragment : Fragment() {
             var viewRecycle = view.findViewById<LinearLayout>(R.id.viewDataTask)
             var loading = view.findViewById<LinearLayout>(R.id.loadingCardTask)
 
-            viewRecycle.visibility = View.VISIBLE
+            recyclerView.visibility = View.VISIBLE
             loading.visibility = View.GONE
 
         }, 500)

@@ -22,7 +22,6 @@ class AdapterExpense(private val list: ArrayList<Expense>): RecyclerView.Adapter
         var cantidad = expense.Expensive!!.toFloat().toDouble()
 
         holder.user.text = expense.user.toString()
-        holder.title.text = expense.title.toString()
         holder.descr.text = expense.description.toString()
         holder.date.text = expense.date.toString()
         holder.cate.text = expense.category.toString()
@@ -34,7 +33,6 @@ class AdapterExpense(private val list: ArrayList<Expense>): RecyclerView.Adapter
         return list.size
     }
     public class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        val title: TextView = itemView.findViewById(R.id.txtitleExpense)
         val descr: TextView = itemView.findViewById(R.id.txdescripExpense)
         val date: TextView = itemView.findViewById(R.id.txDateExpense)
         val user: TextView = itemView.findViewById(R.id.txExpenseUser)
