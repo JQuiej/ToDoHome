@@ -43,8 +43,14 @@
     <string name="menu_offercourse">Quieres estudiar en la UMG?</string>
     <string name="bar_title">To Do Home</string>
     <string name="titleSignOut">Quieres Cerrar Sesion?</string>
+    <string name="titleCloseFamily">Quieres Salir de esta Familia?</string>
+    <string name="textCloseFamily">si sales de esta Familia ya no tendras acceso a las tareas, gastos, ubicacion y chat Familiar. Para continuar seleccion aceptar</string>
     <string name="signOutText">Si cierras sesion ya no podras acceder a los datos de esta Familia hasta que inicies nuevamente con tu cuenta</string>
     <string name="IdFamily">Necesitas Agregarte a una Familia</string>
+    <string name="DoneTask">Completar Tarea</string>
+    <string name="RemoveTask">Desea Eliminar la Tarea?</string>
+    <string name="TextRemoveTask">Si elimina la tareas ya no quedara registro de la misma</string>
+    <string name="textDoneTask">Desea Marcar como completada esta Tarea??</string>
     <string name="noIdFamily">Como no pertecenes a ninguna Familia no puedes acceder a estas opciones. Para agregarte a una Familia Presiona aceptar para que puedas Unirte o Crear una</string>
     <string name="textapp">Empoderamos a las familias para que administren sus finanzas con confianza y facilidad.</string>
     <!-- TODO: Remove or change this placeholder text -->

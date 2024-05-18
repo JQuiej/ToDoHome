@@ -12,8 +12,6 @@
         android:id="@+id/RecycleViewData"
         style="@style/Theme.ToDoHome"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        tools:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -31,6 +29,7 @@
     <androidx.recyclerview.widget.RecyclerView
         style="@style/Theme.AppCompat.Light.NoActionBar"
         android:id="@+id/rvFamilyLocation"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp">

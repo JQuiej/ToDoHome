@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.firebase.firestore.FirebaseFirestore
+import com.umg.todohome.activityAddFamily.Companion.idFamily
 import com.umg.todohome.activityDataUser.Companion.userName
 import com.umg.todohome.expensiveFragment.Companion.totalEx
 import java.text.SimpleDateFormat
@@ -19,7 +20,6 @@ import kotlin.random.Random
 
 class ActivityAddExpensive: AppCompatActivity() {
 
-    private lateinit var title: EditText
     private lateinit var descrip: EditText
     private lateinit var categoria: EditText
     private lateinit var cantidad: EditText
@@ -56,7 +56,6 @@ class ActivityAddExpensive: AppCompatActivity() {
         numExpensive++
 
         val idExpense = generateUniqueId()
-        val ExpenTitle = title.text.toString()
         val ExpenDesc = descrip.text.toString()
         val ExpenCat = categoria.text.toString()
         val ExpenCant = cantidad.text.toString()
@@ -66,10 +65,9 @@ class ActivityAddExpensive: AppCompatActivity() {
 
         var collection = "expenses"
         var db = FirebaseFirestore.getInstance()
-        db.collection(collection).document(activityAddFamily.idFamily).collection(activityAddFamily.idFamily).document(idExpense).set(
+        db.collection(collection).document(idFamily).collection(idFamily).document(idExpense).set(
             hashMapOf(
                 "user" to userName,
-                "title" to ExpenTitle,
                 "description" to ExpenDesc,
                 "category" to ExpenCat,
                 "Expensive" to ExpenCant,

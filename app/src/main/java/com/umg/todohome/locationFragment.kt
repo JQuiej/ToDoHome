@@ -42,11 +42,10 @@ class locationFragment : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed({
 
-            var viewRecycle = view.findViewById<LinearLayout>(R.id.RecycleViewData)
             var loading = view.findViewById<LinearLayout>(R.id.loadingCard)
 
-            viewRecycle.visibility = View.VISIBLE
             loading.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
 
         }, 500)
 

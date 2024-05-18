@@ -2,6 +2,7 @@ package com.umg.todohome
 
 import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.View
 import android.widget.Adapter
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -38,7 +40,23 @@ class ActivityListFamily: AppCompatActivity()  {
 
     }
     fun ExitFamily(view: View){
-        ExitUserFamily()
+        alertCloseFamily()
+    }
+    private fun alertCloseFamily(){
+        AlertDialog.Builder(this, R.style.WhiteAlertDialogTheme)
+            .setTitle(getString(R.string.titleCloseFamily))
+            .setMessage(R.string.textCloseFamily)
+            .setInverseBackgroundForced(true)
+            .setPositiveButton(android.R.string.ok,
+                DialogInterface.OnClickListener { dialog, which ->
+                    ExitUserFamily()
+                })
+            .setNegativeButton(android.R.string.cancel,
+                DialogInterface.OnClickListener { dialog, which ->
+                    closeContextMenu()
+                })
+            .setCancelable(true)
+            .show()
     }
     private fun ExitUserFamily(){
         var db = FirebaseFirestore.getInstance()

@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -40,13 +41,16 @@ class taskFragment : Fragment() {
     private lateinit var taskArraylist: ArrayList<Task>
     private lateinit var adapterTask: AdapterTask
     private lateinit var btAddTask: FloatingActionButton
-
+    private lateinit var btDoneTask: Button
+    private lateinit var btPendTask: Button
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         btAddTask = view.findViewById(R.id.btAddTask)
+        btDoneTask = view.findViewById(R.id.taskDone)
+        btPendTask = view.findViewById(R.id.taskPendin)
 
         recyclerView = view.findViewById(R.id.rvTaskFamily)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -56,14 +60,41 @@ class taskFragment : Fragment() {
         adapterTask = AdapterTask(taskArraylist)
         recyclerView.adapter = adapterTask
 
+
+        var loading = view.findViewById<LinearLayout>(R.id.loadingCardTask)
+
         btAddTask.setOnClickListener{
             val intent = Intent(requireActivity(), ActivityAddTask::class.java)
             startActivity(intent)
         }
+        btDoneTask.setOnClickListener{
+            loadRecycleView("Realizado")
+            recyclerView.visibility = View.GONE
+            loading.visibility = View.VISIBLE
 
+            Handler(Looper.getMainLooper()).postDelayed({
+                loading.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+
+            }, 800)
+        }
+
+        btPendTask.setOnClickListener{
+            loadRecycleView("Pendiente")
+            recyclerView.visibility = View.GONE
+            loading.visibility = View.VISIBLE
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                loading.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+
+            }, 800)
+        }
+
+
+        adapterTask.notifyDataSetChanged()
         Handler(Looper.getMainLooper()).postDelayed({
 
-            var viewRecycle = view.findViewById<LinearLayout>(R.id.viewDataTask)
             var loading = view.findViewById<LinearLayout>(R.id.loadingCardTask)
 
             recyclerView.visibility = View.VISIBLE
@@ -71,8 +102,8 @@ class taskFragment : Fragment() {
 
         }, 500)
 
-
     }
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -84,22 +115,21 @@ class taskFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        loadRecycleView()
-
+        loadRecycleView("Pendiente")
     }
     @SuppressLint("NotifyDataSetChanged")
-    private fun loadRecycleView() {
+    private fun loadRecycleView(status: String) {
         taskArraylist.clear()
 
         var dbRuns = FirebaseFirestore.getInstance()
-        dbRuns.collection("task").document(idFamily).collection(idFamily)
-            .orderBy("importance",Query.Direction.ASCENDING)
+        dbRuns.collection("task").document(idFamily).collection(idFamily).whereEqualTo("status", status)
+            .orderBy("importance", Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { documents ->
                 for (doc in documents) {
                     taskArraylist.add(doc.toObject(Task::class.java))
-                    adapterTask.notifyDataSetChanged()
                 }
+                adapterTask.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting documents WHERE EQUAL TO: ", exception)

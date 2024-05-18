@@ -25,7 +25,7 @@ class AdapterMessage(private val list: ArrayList<Message>): RecyclerView.Adapter
         return MyViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: AdapterMessage.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val message: Message = list[position]
 
         val email = message.user.toString()
@@ -37,7 +37,7 @@ class AdapterMessage(private val list: ArrayList<Message>): RecyclerView.Adapter
             holder.content.text = message.content.toString()
             holder.time.text = message.time.toString()
 
-
+            holder.LnContent.translationX = 450F
         }else{
             holder.user.text = message.name.toString()
             holder.content.text = message.content.toString()
@@ -66,7 +66,9 @@ class AdapterMessage(private val list: ArrayList<Message>): RecyclerView.Adapter
     override fun getItemCount(): Int {
         return list.size
     }
+
     public class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        val LnTextMessage: LinearLayout = itemView.findViewById(R.id.LnTextMessage)
         val LnContent: LinearLayout = itemView.findViewById(R.id.layoutMessageContent)
         val content: TextView = itemView.findViewById(R.id.contentMessageChat)
         val user: TextView = itemView.findViewById(R.id.txUserNameChat)

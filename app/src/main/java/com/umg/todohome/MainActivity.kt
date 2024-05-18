@@ -336,7 +336,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
     }
     private fun alertFamily(){
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(this, R.style.WhiteAlertDialogTheme)
             .setTitle(getString(R.string.IdFamily))
             .setMessage(R.string.noIdFamily)
             .setInverseBackgroundForced(true)
@@ -352,7 +352,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .show()
     }
     private fun alertSignout(){
-        AlertDialog.Builder(this)
+        AlertDialog.Builder(this, R.style.WhiteAlertDialogTheme)
             .setTitle(getString(R.string.titleSignOut))
             .setMessage(R.string.signOutText)
             .setInverseBackgroundForced(true)

@@ -30,7 +30,6 @@
                 android:backgroundTint="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/bottom_navigation"
                 android:layout_marginTop="?attr/actionBarSize">
-
             </FrameLayout>
 
             <com.google.android.material.bottomnavigation.BottomNavigationView

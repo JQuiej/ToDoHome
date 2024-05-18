@@ -36,7 +36,7 @@ class AdapterFamilyLocation(private val list: ArrayList<Integrants>): RecyclerVi
 
 
             holder.name.text = family.name.toString()
-            holder.DateLocation.text = family.date.toString()
+            holder.date.text = family.date.toString()
 
 
             val storageRef = FirebaseStorage.getInstance().getReference("fotos/$email/image/ImageUser")
@@ -85,6 +85,7 @@ class AdapterFamilyLocation(private val list: ArrayList<Integrants>): RecyclerVi
         public class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
             val cardView: CardView = itemView.findViewById(R.id.card_location)
             val name: TextView = itemView.findViewById(R.id.txNameUserFamilylt)
+            val date: TextView = itemView.findViewById(R.id.txdateUserlocation)
             val getLocation: Button = itemView.findViewById(R.id.GetLocation)
             val image: ImageView = itemView.findViewById(R.id.imageUserlt)
         }

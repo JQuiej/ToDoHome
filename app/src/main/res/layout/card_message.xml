@@ -14,15 +14,16 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageUserChat"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="20dp"
             android:src="@drawable/user_image"
             app:shapeAppearanceOverlay="@style/circular" />
 
         <LinearLayout
-            android:layout_width="210dp"
+            android:id="@+id/LnTextMessage"
+            android:layout_width="wrap_content"
             android:background="@drawable/rounded_logo_background"
             android:backgroundTint="@color/gray"
             android:layout_height="wrap_content"
@@ -34,24 +35,22 @@
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:text="Manleo Payes"
-                android:layout_marginStart="3dp"
                 android:paddingRight="10dp"
-                android:paddingStart="20dp"
+                android:paddingStart="30dp"
                 android:layout_gravity="center_vertical"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textColor="@color/Important"
                 />
             <TextView
                 android:id="@+id/contentMessageChat"
-                android:layout_width="220dp"
+                android:layout_width="190dp"
                 android:layout_height="wrap_content"
                 android:text="mensaje del usuarioajsdflkajsdfkjaskldfjlkasjflkajsldfkjaldkjflaksdjflasflkajsldkfj"
-                android:layout_marginStart="3dp"
-                android:paddingRight="20dp"
-                android:paddingTop="1dp"
-                android:paddingBottom="5dp"
+                android:layout_marginStart="5dp"
+                android:paddingStart="10dp"
+                android:paddingRight="5dp"
                 android:layout_gravity="center_vertical"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textColor="@color/background_highlight"
                 />
 
@@ -63,12 +62,12 @@
 
                 <TextView
                     android:id="@+id/txTimeChat"
-                    android:layout_width="110dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingRight="25dp"
                     android:text="12:12 am"
-                    android:paddingRight="8dp"
                     android:textColor="@color/background_highlight"
-                    android:textSize="15sp" />
+                    android:textSize="13sp" />
 
             </RelativeLayout>
         </LinearLayout>

@@ -1,6 +1,7 @@
 package com.umg.todohome
 
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
@@ -36,14 +37,14 @@ class chatFragment : Fragment() {
     private lateinit var contentMessage: EditText
     private lateinit var MessageArrayList: ArrayList<Message>
     private lateinit var adapterMessage: AdapterMessage
+    private lateinit var layoutManager: LinearLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        val loading = view.findViewById<LinearLayout>(R.id.loadingCardMessage)
         sendMessage = view.findViewById(R.id.SendButtonMessage)
         contentMessage = view.findViewById(R.id.contentMessage)
-
 
         recyclerView = view.findViewById(R.id.recycleVewChat)
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -58,7 +59,6 @@ class chatFragment : Fragment() {
             val message = contentMessage.text.toString()
             val idMessage = generateUniqueId()
 
-            val time =  LocalTime.now()
             val timeFormatter = DateTimeFormatter.ofPattern("h:mm a")
             val formattedTime = timeFormatter.format(LocalTime.now())
 
@@ -67,24 +67,33 @@ class chatFragment : Fragment() {
             db.collection(collection).document(idFamily).collection(idFamily
             ).document(idMessage).set(
                 hashMapOf(
+                    "idMessage" to idMessage,
                     "user" to usermail,
                     "time" to formattedTime,
                     "name" to userName,
                     "content" to message,
                 )
             )
+            recyclerView.visibility = View.GONE
+            loading.visibility = View.VISIBLE
             contentMessage.setText("")
+
             loadRecycleView()
+            Handler(Looper.getMainLooper()).postDelayed({
+
+                recyclerView.visibility = View.VISIBLE
+                loading.visibility = View.GONE
+
+            }, 800)
+
         }
 
         Handler(Looper.getMainLooper()).postDelayed({
 
-            //var loading = view.findViewById<LinearLayout>(R.id.loadingCardExpensive)
+            val loading = view.findViewById<LinearLayout>(R.id.loadingCardMessage)
 
             recyclerView.visibility = View.VISIBLE
-            //loading.visibility = View.GONE
-
-
+            loading.visibility = View.GONE
 
         }, 800)
 
@@ -101,18 +110,22 @@ class chatFragment : Fragment() {
         super.onResume()
         loadRecycleView()
     }
+    @SuppressLint("NotifyDataSetChanged")
     private fun loadRecycleView() {
         MessageArrayList.clear()
 
         var dbRuns = FirebaseFirestore.getInstance()
         dbRuns.collection("message").document(idFamily).collection(idFamily)
-            .orderBy("time", Query.Direction.ASCENDING)
+            .orderBy("idMessage", Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { documents ->
                 for (doc in documents) {
                     MessageArrayList.add(doc.toObject(Message::class.java))
-                    adapterMessage.notifyDataSetChanged()
                 }
+                adapterMessage.notifyDataSetChanged()
+                layoutManager = LinearLayoutManager(context)
+                layoutManager.scrollToPosition( adapterMessage.itemCount - 1)
+                recyclerView.layoutManager = layoutManager
             }
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting documents WHERE EQUAL TO: ", exception)
@@ -120,11 +133,9 @@ class chatFragment : Fragment() {
     }
 
     fun generateUniqueId(): String {
-        val timestamp = SimpleDateFormat("yyyyMMddHHmmssSSS").format(Date()) // Get current timestamp with millisecond precision
-        val randomSuffix = Random.nextInt(10000) // Generate a random 4-digit suffix
+        val timestamp =
+            SimpleDateFormat("yyyyMMddHHmmssSSS").format(Date()) // Get current timestamp with millisecond precision
 
-        return "$timestamp-$randomSuffix" // Combine timestamp and random
-        }
-
-
+        return timestamp
+    }
 }
