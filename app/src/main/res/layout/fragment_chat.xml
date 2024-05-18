@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -53,10 +54,9 @@
         android:layout_margin="10dp"
         app:cardCornerRadius="30dp"
         app:cardElevation="5dp"
+        app:layout_optimizationLevel="standard"
         android:backgroundTint="@color/background_highlight"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -99,5 +99,38 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        app:shimmer_auto_start="true"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            style="@style/Theme.ToDoHome"
+            android:layout_marginTop="55dp"
+            android:id="@+id/loadingCardMessage"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/loading_card_message"/>
+            <include layout="@layout/loading_card_message"/>
+            <include layout="@layout/loading_card_user_message"/>
+            <include layout="@layout/loading_card_message"/>
+            <include layout="@layout/loading_card_message"/>
+            <include layout="@layout/loading_card_user_message"/>
+            <include layout="@layout/loading_card_message"/>
+            <include layout="@layout/loading_card_user_message"/>
+            <include layout="@layout/loading_card_user_message"/>
+            <include layout="@layout/loading_card_user_message"/>
+
+        </LinearLayout>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,7 +45,7 @@
                     android:layout_marginTop="4dp"
                     android:layout_marginStart="3dp"
                     android:layout_gravity="center_vertical"
-                    android:text="ultima Localizacion: "
+                    android:text="ult. Localizacion:"
                     android:textSize="8sp"
                     android:textColor="@color/background_highlight"
                     />

@@ -87,7 +87,8 @@ class ActivityAddTask: AppCompatActivity() {
                 "description" to taksD,
                 "importance" to relevance,
                 "status" to status,
-                "date" to dateTask
+                "date" to dateTask,
+                "id" to idTask
             )
         )
 
@@ -100,4 +101,6 @@ class ActivityAddTask: AppCompatActivity() {
         val randomSuffix = Random.nextInt(10000) // Generate a random 4-digit suffix
         return "$timestamp-$randomSuffix" // Combine timestamp and random suffix
     }
+
+    fun addExpensive(view: View) {}
 }
