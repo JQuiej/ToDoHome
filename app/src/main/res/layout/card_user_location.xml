@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="3dp"
                 android:layout_gravity="center_vertical"
-                android:textSize="15sp"
+                android:textSize="13sp"
                 android:textColor="@color/background_highlight"
                 />
 
@@ -47,12 +47,11 @@
                     android:layout_gravity="center_vertical"
                     android:text="ult. Localizacion:"
                     android:textSize="8sp"
-                    android:textColor="@color/background_highlight"
-                    />
+                    android:textColor="@color/background_highlight" />
 
                 <TextView
                     android:id="@+id/txdateUserlocation"
-                    android:layout_width="105dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
                     android:layout_marginTop="4dp"

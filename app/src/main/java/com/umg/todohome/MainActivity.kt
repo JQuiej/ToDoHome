@@ -71,8 +71,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var binding: ActivityMainBinding
     private lateinit var imageUserbar: ImageView
 
-    var ubicacionActual: Location? = null
-
     private val CODIGO_PERMISO_SEGUNDO_PLANO = 100
     private var isPermisos = false
 
@@ -81,11 +79,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     lateinit var name: EditText
     lateinit var date: EditText
-    lateinit var addres: EditText
-    lateinit var Image: ImageView
-    lateinit var mStorage: StorageReference
-
-    private val GALLERY_INTENT = 2
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,7 +87,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.progressBar.visibility = View.VISIBLE
+        binding.imageViewLoading.visibility = View.VISIBLE
+
+        Glide.with(this)
+            .load(R.raw.loading)
+            .into(binding.imageViewLoading)
 
         verifyFamily(usermail)
         initToolBar()
@@ -124,7 +121,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         Handler(Looper.getMainLooper()).postDelayed({
 
-            binding.progressBar.visibility = View.GONE
+            binding.imageViewLoading.visibility = View.GONE
             openFragment(locationFragment())
 
         }, 3000)
@@ -339,7 +336,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         AlertDialog.Builder(this, R.style.WhiteAlertDialogTheme)
             .setTitle(getString(R.string.IdFamily))
             .setMessage(R.string.noIdFamily)
-            .setInverseBackgroundForced(true)
             .setPositiveButton(android.R.string.ok,
                 DialogInterface.OnClickListener { dialog, which ->
                     goAddFamily()
@@ -355,7 +351,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         AlertDialog.Builder(this, R.style.WhiteAlertDialogTheme)
             .setTitle(getString(R.string.titleSignOut))
             .setMessage(R.string.signOutText)
-            .setInverseBackgroundForced(true)
             .setPositiveButton(android.R.string.ok,
                 DialogInterface.OnClickListener { dialog, which ->
                     signOut()

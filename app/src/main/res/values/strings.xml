@@ -44,6 +44,8 @@
     <string name="bar_title">To Do Home</string>
     <string name="titleSignOut">Quieres Cerrar Sesion?</string>
     <string name="titleCloseFamily">Quieres Salir de esta Familia?</string>
+    <string name="titleDeleteImage">Quieres Eliminar esta Foto?</string>
+    <string name="textDeleteImage">Si borras esta foto ya nadie de los integrantes de la Familia podra verla.</string>
     <string name="textCloseFamily">si sales de esta Familia ya no tendras acceso a las tareas, gastos, ubicacion y chat Familiar. Para continuar seleccion aceptar</string>
     <string name="signOutText">Si cierras sesion ya no podras acceder a los datos de esta Familia hasta que inicies nuevamente con tu cuenta</string>
     <string name="IdFamily">Necesitas Agregarte a una Familia</string>

@@ -1,13 +1,16 @@
 package com.umg.todohome
 
 import android.Manifest
+import android.app.DatePickerDialog
 import android.content.ContentValues
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
@@ -30,6 +33,8 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 import java.io.File
 import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -42,6 +47,7 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FileDownloadTask
+import java.util.Calendar
 
 class activityDataUser: AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
@@ -55,6 +61,8 @@ class activityDataUser: AppCompatActivity() {
     lateinit var name: EditText
     lateinit var date: EditText
     lateinit var addres: EditText
+    lateinit var imageViewLoading: ImageView
+    lateinit var lnViewData: LinearLayout
     lateinit var Image: ImageView
     lateinit var mStorage: StorageReference
 
@@ -63,6 +71,15 @@ class activityDataUser: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_data_user)
+
+        lnViewData = findViewById(R.id.lnUserData)
+
+        imageViewLoading = findViewById(R.id.loadingImageUser)
+
+
+        Glide.with(this)
+            .load(R.raw.loading)
+            .into(imageViewLoading)
 
         mAuth = FirebaseAuth.getInstance()
         mStorage = FirebaseStorage.getInstance().reference
@@ -75,6 +92,7 @@ class activityDataUser: AppCompatActivity() {
 
         loadDataUser()
         loadImage()
+
 
     }
     fun SavePhotos(view: View){
@@ -96,6 +114,9 @@ class activityDataUser: AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
+            lnViewData.visibility = View.GONE
+            imageViewLoading.visibility = View.VISIBLE
+
             val imageUri = data?.data ?: return // Handle case where no image is selected
 
             val storageRef = FirebaseStorage.getInstance().getReference("fotos/$usermail/image/ImageUser")
@@ -106,8 +127,13 @@ class activityDataUser: AppCompatActivity() {
 
             storageRef.putFile(imageUri)
                 .addOnSuccessListener { taskSnapshot ->
-                    Toast.makeText(this, "Se subio exitosamente la foto.", Toast.LENGTH_SHORT).show()
-                    dataUser()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        lnViewData.visibility = View.VISIBLE
+                        imageViewLoading.visibility = View.GONE
+                        Toast.makeText(this, "Se subio exitosamente la foto.", Toast.LENGTH_SHORT).show()
+                        dataUser()
+                    }, 800)
+
                 }
                 .addOnFailureListener { exception ->
                     // Handle upload failure
@@ -145,7 +171,25 @@ class activityDataUser: AppCompatActivity() {
         Toast.makeText(this, "Datos Guardados", Toast.LENGTH_SHORT).show()
         loadImage()
     }
+    fun showDatePickerDialog(view: android.view.View) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
 
+        val datePickerDialog = DatePickerDialog(
+            this,
+            { _, selectedYear, selectedMonth, selectedDayOfMonth ->
+                val selectedDate = "$selectedDayOfMonth/${selectedMonth + 1}/$selectedYear"
+                date.setText(selectedDate)
+                userDate = selectedDate
+            },
+            year,
+            month,
+            dayOfMonth
+        )
+        datePickerDialog.show()
+    }
     private fun loadDataUser() {
         var db = FirebaseFirestore.getInstance()
 
@@ -163,8 +207,6 @@ class activityDataUser: AppCompatActivity() {
                         userName = doc.getString("name").toString()
                         userDate = doc.getString("date").toString()
                         userAddres = doc.getString("addres").toString()
-
-
 
                     }
                     if(userDate == "null" || userAddres == "null"){
@@ -197,7 +239,23 @@ class activityDataUser: AppCompatActivity() {
             }
     }
     fun DeletePhoto(view: View){
-        deleteImage()
+        alertDeleteImage()
+    }
+    private fun alertDeleteImage(){
+        AlertDialog.Builder(this, R.style.WhiteAlertDialogTheme)
+            .setTitle(getString(R.string.titleDeleteImage))
+            .setMessage(R.string.textDeleteImage)
+            .setInverseBackgroundForced(true)
+            .setPositiveButton(android.R.string.ok,
+                DialogInterface.OnClickListener { dialog, which ->
+                    deleteImage()
+                })
+            .setNegativeButton(android.R.string.cancel,
+                DialogInterface.OnClickListener { dialog, which ->
+                    closeContextMenu()
+                })
+            .setCancelable(true)
+            .show()
     }
     private fun deleteImage() {
 

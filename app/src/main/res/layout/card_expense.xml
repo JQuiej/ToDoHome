@@ -6,6 +6,7 @@
     android:backgroundTint="@color/white">
 
     <LinearLayout
+        android:id="@+id/layoutCardExpense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -99,7 +100,7 @@
             android:layout_height="wrap_content"
             android:text="Q50.00"
             android:textColor="@color/background_base"
-            android:textSize="23sp"/>
+            android:textSize="20sp"/>
 
     </RelativeLayout>
 

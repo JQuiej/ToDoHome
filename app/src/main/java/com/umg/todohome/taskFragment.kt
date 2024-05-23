@@ -91,16 +91,14 @@ class taskFragment : Fragment() {
             }, 800)
         }
 
-
-        adapterTask.notifyDataSetChanged()
         Handler(Looper.getMainLooper()).postDelayed({
-
-            var loading = view.findViewById<LinearLayout>(R.id.loadingCardTask)
 
             recyclerView.visibility = View.VISIBLE
             loading.visibility = View.GONE
 
         }, 500)
+
+        listenToFirestoreChanges()
 
     }
     @SuppressLint("NotifyDataSetChanged")
@@ -116,12 +114,13 @@ class taskFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         loadRecycleView("Pendiente")
+
     }
     @SuppressLint("NotifyDataSetChanged")
     private fun loadRecycleView(status: String) {
         taskArraylist.clear()
 
-        var dbRuns = FirebaseFirestore.getInstance()
+        val dbRuns = FirebaseFirestore.getInstance()
         dbRuns.collection("task").document(idFamily).collection(idFamily).whereEqualTo("status", status)
             .orderBy("importance", Query.Direction.ASCENDING)
             .get()
@@ -129,10 +128,45 @@ class taskFragment : Fragment() {
                 for (doc in documents) {
                     taskArraylist.add(doc.toObject(Task::class.java))
                 }
-                adapterTask.notifyDataSetChanged()
+                adapterTask.updateList(taskArraylist)
             }
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting documents WHERE EQUAL TO: ", exception)
+            }
+    }
+    private fun listenToFirestoreChanges() {
+        val db = FirebaseFirestore.getInstance()
+        db.collection("task").document(idFamily).collection(idFamily)
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.w(ContentValues.TAG, "Listen failed.", e)
+                    return@addSnapshotListener
+                }
+
+                for (dc in snapshots!!.documentChanges) {
+                    when (dc.type) {
+                        com.google.firebase.firestore.DocumentChange.Type.ADDED -> {
+                            taskArraylist.add(dc.document.toObject(Task::class.java))
+                            adapterTask.notifyItemInserted(taskArraylist.size - 1)
+                        }
+                        com.google.firebase.firestore.DocumentChange.Type.MODIFIED -> {
+                            val updatedTask = dc.document.toObject(Task::class.java)
+                            val index = taskArraylist.indexOfFirst { it.id == updatedTask.id }
+                            if (index != -1) {
+                                taskArraylist[index] = updatedTask
+                                adapterTask.notifyItemChanged(index)
+                            }
+                        }
+                        com.google.firebase.firestore.DocumentChange.Type.REMOVED -> {
+                            val removedTask = dc.document.toObject(Task::class.java)
+                            val index = taskArraylist.indexOfFirst { it.id == removedTask.id }
+                            if (index != -1) {
+                                taskArraylist.removeAt(index)
+                                adapterTask.notifyItemRemoved(index)
+                            }
+                        }
+                    }
+                }
             }
     }
 
