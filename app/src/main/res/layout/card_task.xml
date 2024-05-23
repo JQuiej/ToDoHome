@@ -51,6 +51,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/textRelevanceTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="35dp"
@@ -68,6 +69,15 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/txtDateTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text=""
+                android:textColor="@color/background_highlight"
+                android:textSize="10sp" />
+
+            <TextView
                 android:id="@+id/txDatetask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -78,6 +88,7 @@
                 android:textSize="10sp" />
 
             <TextView
+                android:id="@+id/TextUserTask"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

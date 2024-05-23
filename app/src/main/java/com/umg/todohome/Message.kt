@@ -1,6 +1,7 @@
 package layout
 
 class Message (
+    var idMessage: String ?= null,
     var date: String ?= null,
     var user: String ?= null,
     var name: String ?= null,

@@ -12,8 +12,8 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="47dp"
-        android:background="@drawable/toolbar_round_background"
         android:layout_margin="10dp"
+        android:background="@drawable/toolbar_round_background"
         android:elevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,17 +28,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Family Chat"
-                android:textStyle="bold"
+                android:textColor="#323232"
                 android:textSize="20sp"
-                android:textColor="#323232"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleVewChat"
-        android:visibility="gone"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
         android:paddingTop="10dp"
@@ -51,24 +50,25 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="30dp"
-        app:cardElevation="5dp"
-        app:layout_optimizationLevel="standard"
+        android:layout_margin="5dp"
         android:backgroundTint="@color/background_highlight"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:cardCornerRadius="28dp"
+        app:cardElevation="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/contentMessage"
                 android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:hint="Escribe un mensaje"
                 android:padding="15dp"
-                android:background="@android:color/transparent"
-                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/SendButtonMessage"
                 app:layout_constraintStart_toEndOf="@+id/sendImage"
@@ -79,8 +79,8 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="10dp"
-                android:scaleType="centerCrop"
                 android:backgroundTint="@color/background_highlight"
+                android:scaleType="centerCrop"
                 android:src="@drawable/camera"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,9 +90,9 @@
                 android:id="@+id/SendButtonMessage"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:backgroundTint="@color/background_highlight"
                 android:scaleType="centerCrop"
                 android:src="@drawable/text"
-                android:backgroundTint="@color/background_highlight"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -101,36 +101,45 @@
     </androidx.cardview.widget.CardView>
 
     <com.facebook.shimmer.ShimmerFrameLayout
-        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/shimmerLayout"
         android:layout_width="match_parent"
-        app:shimmer_auto_start="true"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:shimmer_auto_start="true">
 
         <LinearLayout
-            style="@style/Theme.ToDoHome"
-            android:layout_marginTop="55dp"
             android:id="@+id/loadingCardMessage"
+            style="@style/Theme.ToDoHome"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="parent"
-            android:layout_height="match_parent">
+            android:visibility="visible">
 
-            <include layout="@layout/loading_card_message"/>
-            <include layout="@layout/loading_card_message"/>
-            <include layout="@layout/loading_card_user_message"/>
-            <include layout="@layout/loading_card_message"/>
-            <include layout="@layout/loading_card_message"/>
-            <include layout="@layout/loading_card_user_message"/>
-            <include layout="@layout/loading_card_message"/>
-            <include layout="@layout/loading_card_user_message"/>
-            <include layout="@layout/loading_card_user_message"/>
-            <include layout="@layout/loading_card_user_message"/>
+            <include layout="@layout/loading_card_message" />
+
+            <include layout="@layout/loading_card_message" />
+
+            <include layout="@layout/loading_card_user_message" />
+
+            <include layout="@layout/loading_card_message" />
+
+            <include layout="@layout/loading_card_message" />
+
+            <include layout="@layout/loading_card_user_message" />
+
+            <include layout="@layout/loading_card_message" />
+
+            <include layout="@layout/loading_card_user_message" />
+
+            <include layout="@layout/loading_card_user_message" />
+
+            <include layout="@layout/loading_card_user_message" />
 
         </LinearLayout>
 
     </com.facebook.shimmer.ShimmerFrameLayout>
 
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
+

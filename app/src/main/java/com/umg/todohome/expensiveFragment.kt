@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.umg.todohome.activityAddFamily.Companion.idFamily
+import java.text.DecimalFormat
 
 class expensiveFragment : Fragment() {
 
@@ -63,6 +65,8 @@ class expensiveFragment : Fragment() {
 
         }, 800)
 
+        listenToFirestoreChanges()
+
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,34 +80,82 @@ class expensiveFragment : Fragment() {
         super.onPause()
         totalEx = 0.00
     }
+
     override fun onResume() {
         super.onResume()
+        totalEx = 0.00
         loadRecycleView()
+        updateTotals()
     }
     @SuppressLint("NotifyDataSetChanged")
     private fun loadRecycleView() {
         expenseArrayList.clear()
 
         var dbRuns = FirebaseFirestore.getInstance()
-        dbRuns.collection("expenses").document(activityAddFamily.idFamily)
-            .collection(activityAddFamily.idFamily)
+        dbRuns.collection("expenses").document(idFamily)
+            .collection(idFamily)
             .orderBy("date", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { documents ->
                 for (doc in documents) {
-                    expenseArrayList.add(doc.toObject(Expense::class.java))
-                    adapterExpense.notifyDataSetChanged()
+                    val expense = doc.toObject(Expense::class.java)
+                    expenseArrayList.add(expense)
                 }
+                adapterExpense.notifyDataSetChanged()
+                recalculateTotal()
             }
             .addOnFailureListener { exception ->
                 Log.w(ContentValues.TAG, "Error getting documents WHERE EQUAL TO: ", exception)
             }
     }
-     fun updateTotals(){
-         val totalFormateadoStringFormat = String.format("%.2f", totalEx)
-         println("Total formateado con String.format(): $totalFormateadoStringFormat")
+    private fun listenToFirestoreChanges() {
+        val db = FirebaseFirestore.getInstance()
+        val collectionRef = db.collection("expenses").document(idFamily).collection(idFamily)
 
-         total.setText("Q${totalFormateadoStringFormat}")
+        collectionRef.addSnapshotListener { snapshots, e ->
+            if (e != null) {
+                Log.w(ContentValues.TAG, "Listen failed.", e)
+                return@addSnapshotListener
+            }
+
+            for (dc in snapshots!!.documentChanges) {
+                when (dc.type) {
+                    com.google.firebase.firestore.DocumentChange.Type.ADDED -> {
+                        val addedExpense = dc.document.toObject(Expense::class.java)
+                        expenseArrayList.add(addedExpense)
+                        adapterExpense.notifyItemInserted(expenseArrayList.size - 1)
+                    }
+                    com.google.firebase.firestore.DocumentChange.Type.MODIFIED -> {
+                        val updatedExpense = dc.document.toObject(Expense::class.java)
+                        val index = expenseArrayList.indexOfFirst { it.id == updatedExpense.id }
+                        if (index != -1) {
+                            expenseArrayList[index] = updatedExpense
+                            adapterExpense.notifyItemChanged(index)
+                        }
+                    }
+                    com.google.firebase.firestore.DocumentChange.Type.REMOVED -> {
+                        val removedExpense = dc.document.toObject(Expense::class.java)
+                        val index = expenseArrayList.indexOfFirst { it.id == removedExpense.id }
+                        if (index != -1) {
+                            expenseArrayList.removeAt(index)
+                            adapterExpense.notifyItemRemoved(index)
+                        }
+                    }
+                }
+            }
+            recalculateTotal()
+        }
+    }
+
+    private fun recalculateTotal() {
+        totalEx = expenseArrayList.sumOf { it.Expensive!!.toFloat().toDouble() }
+        updateTotals()
+    }
+
+    fun updateTotals() {
+        val decimalFormat = DecimalFormat("Q###,###.00")
+        val formattedAmount = decimalFormat.format(totalEx)
+        total.text = formattedAmount
     }
 
 }

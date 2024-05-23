@@ -19,7 +19,7 @@
             android:layout_marginTop="15dp"
             android:text="Total:"
             android:textColor="@color/background_base"
-            android:textSize="17sp" />
+            android:textSize="19sp" />
 
         <TextView
             android:id="@+id/txTotalExpensive"
@@ -28,7 +28,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="15dp"
             android:textColor="@color/background_base"
-            android:textSize="17sp" />
+            android:textSize="19sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
