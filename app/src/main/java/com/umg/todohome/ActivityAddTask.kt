@@ -91,9 +91,24 @@ class ActivityAddTask: AppCompatActivity() {
                 "id" to idTask
             )
         )
-
+        sendTask(taksD, "Nueva Tarea")
         Toast.makeText(this, "Tarea agregada exitosamente ", Toast.LENGTH_LONG).show()
         onBackPressed()
+    }
+    private fun sendTask(content: String, title: String){
+        var collection = "notifications"
+
+        var db = FirebaseFirestore.getInstance()
+        db.collection(collection).document(idFamily).collection(
+            idFamily
+        ).document("Task").set(
+            hashMapOf(
+                "id" to "Task",
+                "user" to userName,
+                "title" to title,
+                "text" to content
+            )
+        )
     }
 
     fun generateUniqueId(): String {

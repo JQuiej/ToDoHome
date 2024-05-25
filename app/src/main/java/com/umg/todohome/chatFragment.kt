@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.SetOptions
 import com.umg.todohome.activityAddFamily.Companion.idFamily
 import com.umg.todohome.activityDataUser.Companion.userName
 import com.umg.todohome.loginActivity.Companion.usermail
@@ -87,6 +88,8 @@ class chatFragment : Fragment() {
                 )
                 recyclerView.visibility = View.GONE
                 loading.visibility = View.VISIBLE
+                sendNotification(message, "Nuevo Mensaje")
+
                 contentMessage.setText("")
 
                 loadRecycleView()
@@ -95,7 +98,7 @@ class chatFragment : Fragment() {
                     recyclerView.visibility = View.VISIBLE
                     loading.visibility = View.GONE
 
-                }, 800)
+                }, 1500)
             }
         }
 
@@ -105,12 +108,25 @@ class chatFragment : Fragment() {
 
             recyclerView.visibility = View.VISIBLE
             loading.visibility = View.GONE
-
-        }, 800)
+        }, 1000)
 
         listenToFirestoreChanges()
     }
+    private fun sendNotification(content: String, title: String){
+        var collection = "notifications"
 
+        var db = FirebaseFirestore.getInstance()
+        db.collection(collection).document(idFamily).collection(
+            idFamily
+        ).document("Message").set(
+            hashMapOf(
+                "id" to "Message",
+                "user" to userName,
+                "title" to title,
+                "text" to content
+            )
+        )
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

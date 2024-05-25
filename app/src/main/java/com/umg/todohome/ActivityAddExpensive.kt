@@ -80,8 +80,26 @@ class ActivityAddExpensive: AppCompatActivity() {
         ).addOnSuccessListener {
             Toast.makeText(this, "Gasto agregado exitosamente", Toast.LENGTH_LONG).show()
             totalEx += ExpenCant.toFloat().toDouble() // Actualizar el total después de agregar un nuevo gasto
+            sendExpense(ExpenDesc, "Nuevo Gasto", ExpenCant)
             onBackPressed()
         }
+
+    }
+    private fun sendExpense(content: String, title: String,expenCant: String ){
+        var collection = "notifications"
+
+        var db = FirebaseFirestore.getInstance()
+        db.collection(collection).document(idFamily).collection(
+            idFamily
+        ).document("Expense").set(
+            hashMapOf(
+                "id" to "Expense",
+                "cant" to expenCant,
+                "user" to userName,
+                "title" to title,
+                "text" to content
+            )
+        )
     }
 
     fun generateUniqueId(): String {
