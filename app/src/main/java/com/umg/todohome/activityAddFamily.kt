@@ -128,11 +128,11 @@ class activityAddFamily: AppCompatActivity () {
                                         "Rol" to Rol,
                                     ), SetOptions.merge()
                                 )
-                                Toast.makeText(
-                                    this,
-                                    "Te has unido exitosamente a $idFamily",
+                                Toast.makeText(this, "Te has unido exitosamente a $idFamily",
                                     Toast.LENGTH_SHORT
                                 ).show()
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
                             }
                         } else {
                             // Error al consultar la base de datos
@@ -144,7 +144,6 @@ class activityAddFamily: AppCompatActivity () {
                         }
                     }
             } else Toast.makeText(this, "hay opciones sin seleccionar", Toast.LENGTH_SHORT).show()
-            onBackPressed()
     }
 
 }

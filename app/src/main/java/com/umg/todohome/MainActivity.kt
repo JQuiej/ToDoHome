@@ -1,27 +1,24 @@
 package com.umg.todohome
 
 import android.Manifest
-import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.PixelFormat
 import android.location.Location
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -29,11 +26,12 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
-import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.bumptech.glide.Glide
 import com.facebook.login.LoginManager
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -48,7 +46,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.umg.todohome.activityAddFamily.Companion.Rol
 import com.umg.todohome.activityAddFamily.Companion.idFamily
 import com.umg.todohome.activityDataUser.Companion.userAddres
@@ -57,12 +54,11 @@ import com.umg.todohome.activityDataUser.Companion.userName
 import com.umg.todohome.databinding.ActivityMainBinding
 import com.umg.todohome.loginActivity.Companion.providerSession
 import com.umg.todohome.loginActivity.Companion.usermail
-import kotlinx.coroutines.tasks.await
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.Date
+import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener{
 
@@ -81,11 +77,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var date: EditText
 
 
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         binding.imageViewLoading.visibility = View.VISIBLE
 
@@ -122,13 +120,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         Handler(Looper.getMainLooper()).postDelayed({
 
             binding.imageViewLoading.visibility = View.GONE
+            requestNotificationPermission()
+            isNotificationPermissionGranted()
             openFragment(locationFragment())
 
         }, 3000)
 
 
     }
-
     override fun onResume() {
         super.onResume()
         loadImage()
@@ -138,6 +137,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         this,
         Manifest.permission.ACCESS_FINE_LOCATION
     ) == PackageManager.PERMISSION_GRANTED
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun isNotificationPermissionGranted() = ContextCompat.checkSelfPermission(
+        this,
+        Manifest.permission.POST_NOTIFICATIONS
+    ) == PackageManager.PERMISSION_GRANTED
+
     private fun requestLocationPermission() {
         if (ActivityCompat.shouldShowRequestPermissionRationale(
                 this,
@@ -149,6 +154,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                CODIGO_PERMISO_SEGUNDO_PLANO
+            )
+        }
+    }
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+    private fun requestNotificationPermission() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            )
+        ) {
+            Toast.makeText(this, "Ir a ajustes y acepta los permisos", Toast.LENGTH_SHORT).show()
+        } else {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.POST_NOTIFICATIONS),
                 CODIGO_PERMISO_SEGUNDO_PLANO
             )
         }
@@ -317,6 +338,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val intent = Intent(this, activityDataUser::class.java)
         startActivity(intent)
     }
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun openFragment(fragment: Fragment){
         if(fragment is fragment_welcome){
             val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
@@ -325,6 +347,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }else if (!idFamily.isEmpty()){
             requestLocationPermission()
             isLocationPermissionGranted()
+            startNotificationWorker()
             val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
             fragmentTransaction.replace(R.id.frame_container, fragment)
             fragmentTransaction.commit()
@@ -332,6 +355,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             alertFamily()
         }
     }
+    private fun startNotificationWorker() {
+        val notificationWorkRequest = PeriodicWorkRequestBuilder<NotificationWorker>(1, TimeUnit.MINUTES)
+            .build()
+        WorkManager.getInstance(this).enqueue(notificationWorkRequest)
+    }
+    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     private fun alertFamily(){
         AlertDialog.Builder(this, R.style.WhiteAlertDialogTheme)
             .setTitle(getString(R.string.IdFamily))
